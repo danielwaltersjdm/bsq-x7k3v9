@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="robots" content="noindex, nofollow">
-<title>The Broadsword Quest</title>
+<title>The Quest of St. Mary</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
@@ -220,15 +220,13 @@
 <body>
 <div id="app">
   <header id="hdr">
-    <h1>The Broadsword Quest</h1>
+    <h1>The Quest of St. Mary</h1>
     <p class="subtitle">equal parts intellect and heart</p>
     <hr class="rule">
   </header>
 
-  <div class="strip" id="strip" style="display:none">
+  <div class="strip" id="strip" style="display:none; justify-content:center">
     <span>Seal <b id="s-stop">1</b>&#8202;/&#8202;8</span>
-    <span>Score <b id="s-score">0</b></span>
-    <span class="boxes" id="s-boxes"></span>
   </div>
   <div class="dots" id="dots" style="display:none"></div>
 
@@ -255,7 +253,6 @@ const PORTRAIT = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAcFBQY
 
 /* ═══════════ QUEST DATA ═══════════ */
 const UNLOCK_RADIUS = 75;
-const PAR = 26, MAXPTS = 28;
 
 const STOPS = [
  { name:"The Columns", geo:null,
@@ -382,11 +379,11 @@ const STOPS = [
    hints:[
      "A thirsty playwright named your ride an hour ago; his cat named your destination.",
      "The Pontchartrain Hotel's roof, where the whole city shows itself.",
-     "Hot Tin, 2031 St. Charles, 11th floor. Order two martinis and count your points."
+     "Hot Tin, 2031 St. Charles, 11th floor. Order two martinis; the quest is won."
    ],
    tasks:[
      {type:"referee",
-      prompt:"Two martinis, silver and dry. The city below, the quest behind, the tally counted.\nThe referee confirms the final toast."}
+      prompt:"Two martinis, silver and dry. The city below, the quest behind.\nThe referee confirms the final toast."}
    ],
    arrive:"The roof. The city. The end of the road.",
    lore:{title:"Hot Tin", body:"<em>The cat that fled up here belongs to Tennessee Williams, who lived at the Pontchartrain Hotel while shaping A Streetcar Named Desire: the wyrm you rode this afternoon runs through his title, and this bar's name is his hot tin roof.</em> Eleven floors up, the whole quest lies below you: the avenue, the oaks, the river's crescent. The bean stayed at the bookshop; these glasses are silver and dry. One last envelope waits at headquarters: two canvases, two sets of paints. You paint Molly. The Keeper paints Daisy. The portraits get judged, hung, and never spoken of again."}
@@ -396,8 +393,8 @@ const STOPS = [
 /* ═══════════ STATE ═══════════ */
 let S = load() || { screen:"start", stop:0, task:0, score:0, boxes:3,
                     hintsUsed:STOPS.map(()=>0), arrived:false, manual:false, done:false };
-function save(){ localStorage.setItem("msq2", JSON.stringify(S)); }
-function load(){ try{ return JSON.parse(localStorage.getItem("msq2")); }catch(e){ return null; } }
+function save(){ localStorage.setItem("msq3", JSON.stringify(S)); }
+function load(){ try{ return JSON.parse(localStorage.getItem("msq3")); }catch(e){ return null; } }
 
 /* ═══════════ GEO ═══════════ */
 let watchId=null, lastDist=null, geoOK=false, lastGeoErr=null;
@@ -456,11 +453,8 @@ async function keepAwake(){
 function reached(){
   if(S.arrived) return;
   S.arrived=true;
-  const earned = Math.max(0, 3 - S.hintsUsed[S.stop]);
-  S.score += earned;
   save();
-  celebrate("🕯️", STOPS[S.stop].arrive, "+"+earned+" points",
-    S.hintsUsed[S.stop]>0 ? "(hints cost "+S.hintsUsed[S.stop]+")" : "found without a whisper of help");
+  celebrate("🕯️", STOPS[S.stop].arrive, "", "the seal awaits its task");
   render();
 }
 function celebrate(icon,title,pts,sub){
@@ -475,8 +469,8 @@ function celebrate(icon,title,pts,sub){
 function dismissCelebrate(){ document.getElementById("celebrate").classList.remove("show"); render(); }
 
 function useHint(){
-  if(S.hintsUsed[S.stop]>=3 || S.boxes<=0) return;
-  S.boxes--; S.hintsUsed[S.stop]++;
+  if(S.hintsUsed[S.stop]>=3) return;
+  S.hintsUsed[S.stop]++;
   save(); render();
 }
 function checkAnswer(task, raw){
@@ -497,16 +491,15 @@ function submitTask(){
   }
 }
 function taskDone(){
-  S.score+=1;
   const st=STOPS[S.stop];
   if(S.task < st.tasks.length-1){
     S.task++;
     save();
-    celebrate("🗝️","The task is met","+1 point","another asks…");
+    celebrate("🗝️","The task is met","","another asks…");
   } else {
     S.screen="lore";
     save();
-    celebrate("🗝️","The seal is broken","+1 point","the Keeper would speak…");
+    celebrate("🗝️","The seal is broken","","the Keeper would speak…");
   }
 }
 function nextStop(){
@@ -544,7 +537,7 @@ function render(){
       <div class="card center">
         ${portraitHTML("the huntress")}
         <p class="riddle" style="text-align:left">Claire. A quest is laid before you.\nThe dead, the witch, the iron harvest\nall wait to learn the victor's name.</p>
-        <p class="small" style="margin:14px 0 4px">Three golden boxes buy whispers; each whisper costs a point.\nTwenty-eight points lie on the road; carry home 26 and the gold is yours.\nThe referee walks beside you and settles all disputes.</p>
+        <p class="small" style="margin:14px 0 4px">Whispers wait beneath every riddle; open as many as you please.\nThe referee walks beside you and settles all disputes.</p>
         <button class="btn-primary" style="margin-top:14px" onclick="begin()">Break the first seal</button>
       </div>
       ${geoBanner()}`;
@@ -553,30 +546,20 @@ function render(){
 
   strip.style.display="flex"; dots.style.display="flex";
   document.getElementById("s-stop").textContent=Math.min(S.stop+1,STOPS.length);
-  document.getElementById("s-score").textContent=S.score;
-  document.getElementById("s-boxes").innerHTML=[0,1,2].map(i=>`<span class="itembox ${i<(3-S.boxes)?"used":""}">?</span>`).join("");
   dots.innerHTML=STOPS.map((_,i)=>`<span class="dot ${i<S.stop?"done":i===S.stop?"now":""}"></span>`).join("");
 
   if(S.screen==="final"){
-    const win = S.score>=PAR;
     scr.innerHTML=`
       <div class="card center">
-        <div class="medal">${win?"🥇":"🕯️"}</div>
-        <h2 class="lore-head">${win?"Gold, and fairly won":"A noble defeat"}</h2>
-        <p class="riddle" style="text-align:center">Final score: ${S.score} of ${MAXPTS}</p>
-        <p class="tasktext" style="text-align:center">${win
-          ?"The quest is beaten. The Keeper owes you the medal, the bragging rights, and public acknowledgment that you would survive a horror film."
-          :"The quest has bested you, which means the next round is yours to buy. The Keeper accepts payment in exact change or one sincere compliment."}</p>
+        <div class="medal">🥇</div>
+        <h2 class="lore-head">Gold, and fairly won</h2>
+        <p class="tasktext" style="text-align:center">The quest is beaten. The Keeper owes you the medal, the bragging rights, and public acknowledgment that you would survive a horror film.</p>
       </div>
       <div class="card">
         <div class="stopnum">the last envelope</div>
         <p class="riddle">At headquarters wait two canvases,\ntwo sets of paints, two patient dogs.\nYou shall paint Molly; the Keeper, Daisy.\nThe portraits shall be judged, and hung,\nand never spoken of again.</p>
       </div>
-      <div class="card">
-        <div class="stopnum">the record</div>
-        <table class="scoretable">${STOPS.map((s,i)=>`<tr><td>${i+1}. ${esc(s.name)}</td><td>${(s.geo?Math.max(0,3-S.hintsUsed[i]):0)+s.tasks.length}</td></tr>`).join("")}</table>
-      </div>
-      <button class="btn-ghost" onclick="if(confirm('Reset the whole quest?')){localStorage.removeItem('msq2');location.reload()}">Reset the quest</button>`;
+      <button class="btn-ghost" onclick="if(confirm('Reset the whole quest?')){localStorage.removeItem('msq3');location.reload()}">Reset the quest</button>`;
     return;
   }
 
@@ -609,8 +592,8 @@ function render(){
         <div class="word">${mst.word}</div>
         <div class="hintline">${mst.sub}</div>
       </div>
-      <button class="btn-hint" onclick="useHint()" ${used>=3||S.boxes<=0?"disabled":""}>
-        ${used>=3?"No whispers remain here":S.boxes<=0?"The golden boxes are spent":"Open a golden box (whisper "+(used+1)+", costs 1 point)"}
+      <button class="btn-hint" onclick="useHint()" ${used>=3?"disabled":""}>
+        ${used>=3?"No whispers remain here":"Open a whisper ("+(used+1)+" of 3)"}
       </button>
       ${S.manual?`<button class="btn-ghost" style="margin-top:10px" onclick="refOverride()">Referee: we stand upon it</button>`:""}`;
   } else {
@@ -632,8 +615,8 @@ function render(){
         ${(!st.geo)?Array.from({length:used},(_,i)=>`<div class="hintrevealed"><b>whisper ${i+1}</b> — ${esc(st.hints[i])}</div>`).join(""):""}
       </div>
       ${(!st.geo)?`
-      <button class="btn-hint" onclick="useHint()" ${used>=3||S.boxes<=0?"disabled":""}>
-        ${used>=3?"No whispers remain here":S.boxes<=0?"The golden boxes are spent":"Open a golden box (whisper "+(used+1)+", costs 1 point)"}
+      <button class="btn-hint" onclick="useHint()" ${used>=3?"disabled":""}>
+        ${used>=3?"No whispers remain here":"Open a whisper ("+(used+1)+" of 3)"}
       </button>`:""}`;
   }
 }
