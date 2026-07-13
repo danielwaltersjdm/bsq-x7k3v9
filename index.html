@@ -20,17 +20,21 @@
     background:var(--void); color:var(--bone);
     background-image:radial-gradient(ellipse at 50% -10%, #1a1410 0%, var(--void) 60%);
     font-family:'IM Fell English', Georgia, serif;
-    min-height:100dvh; font-size:17px;
+    min-height:100dvh; font-size:25px;
   }
   #app{max-width:520px; margin:0 auto; padding:0 18px 48px; position:relative}
 
   header{ text-align:center; padding:20px 0 12px; user-select:none; }
   h1{
     font-family:'UnifrakturMaguntia', cursive; font-weight:400;
-    font-size:36px; margin:6px 0 2px; color:var(--bone);
+    font-size:44px; margin:6px 0 2px; color:var(--bone);
     text-shadow:0 0 24px rgba(201,162,39,.15); text-wrap:balance; line-height:1.15;
   }
-  .subtitle{font-style:italic; color:var(--bone-dim); font-size:15px; margin:2px 0 0}
+  .subtitle{font-style:italic; color:var(--bone-dim); font-size:22px; margin:2px 0 0}
+  .bee{color:var(--bone); opacity:.85; margin:2px 0 0; line-height:0}
+  .compass{display:flex; flex-direction:column; align-items:center; gap:2px; margin-bottom:8px; color:var(--bone-dim)}
+  .compass svg{overflow:visible}
+  .compass-note{font-size:18px; font-style:italic}
   .rule{ border:none; height:14px; margin:10px auto 0; width:220px;
     background:
      linear-gradient(var(--line),var(--line)) center 3px/220px 1px no-repeat,
@@ -38,14 +42,14 @@
     position:relative;
   }
   .rule::after{content:"❦"; position:absolute; left:50%; top:-4px; transform:translateX(-50%);
-    color:var(--gold); font-size:13px; padding:0 8px}
+    color:var(--gold); font-size:19px; padding:0 8px}
 
   .strip{
     display:flex; justify-content:center; align-items:center;
-    font-family:'IM Fell English SC', serif; font-size:13px; letter-spacing:.08em;
+    font-family:'IM Fell English SC', serif; font-size:19px; letter-spacing:.08em;
     margin:12px 0 4px; color:var(--bone-dim); font-variant-numeric:tabular-nums;
   }
-  .strip b{color:var(--gold); font-size:16px}
+  .strip b{color:var(--gold); font-size:23px}
   .dots{display:flex; gap:8px; justify-content:center; margin:8px 0 16px}
   .dot{width:8px;height:8px; transform:rotate(45deg); background:var(--line)}
   .dot.done{background:var(--moss)}
@@ -56,23 +60,23 @@
     padding:22px 20px; margin-bottom:16px; position:relative;
     box-shadow:0 4px 24px rgba(0,0,0,.5), inset 0 0 60px rgba(0,0,0,.35);
   }
-  .card::before,.card::after{ content:"✕"; position:absolute; color:var(--line); font-size:10px; line-height:1; }
+  .card::before,.card::after{ content:"✕"; position:absolute; color:var(--line); font-size:14px; line-height:1; }
   .card::before{top:6px; left:8px} .card::after{bottom:6px; right:8px}
   .stopnum{
-    font-family:'IM Fell English SC', serif; font-size:12px;
+    font-family:'IM Fell English SC', serif; font-size:17px;
     letter-spacing:.28em; color:var(--blood-lit); margin-bottom:10px;
   }
-  .riddle{ font-size:18.5px; line-height:1.65; white-space:pre-line; font-style:italic; color:var(--bone); }
+  .riddle{ font-size:27px; line-height:1.65; white-space:pre-line; font-style:italic; color:var(--bone); }
   .riddle::first-letter{
     font-family:'UnifrakturMaguntia', cursive; font-style:normal;
     font-size:200%; color:var(--gold); line-height:.8; padding-right:2px;
   }
   .way{
     margin-top:14px; padding-top:12px; border-top:1px solid var(--line);
-    font-size:14.5px; color:var(--bone-dim); font-style:normal;
+    font-size:21px; color:var(--bone-dim); font-style:normal;
   }
-  .way b{color:var(--bone); font-weight:normal; font-family:'IM Fell English SC',serif; letter-spacing:.14em; font-size:12.5px}
-  .tasktext{font-size:17px; line-height:1.6; white-space:pre-line}
+  .way b{color:var(--bone); font-weight:normal; font-family:'IM Fell English SC',serif; letter-spacing:.14em; font-size:18px}
+  .tasktext{font-size:25px; line-height:1.6; white-space:pre-line}
 
   .meter{
     text-align:center; padding:14px 10px; margin-bottom:16px;
@@ -80,8 +84,8 @@
     background:linear-gradient(180deg, rgba(0,0,0,.25), transparent);
     transition:border-color .6s;
   }
-  .meter .word{font-family:'IM Fell English SC',serif; font-size:19px; letter-spacing:.12em}
-  .meter .hintline{font-size:13px; color:var(--bone-dim); margin-top:4px; font-style:italic}
+  .meter .word{font-family:'IM Fell English SC',serif; font-size:28px; letter-spacing:.12em}
+  .meter .hintline{font-size:19px; color:var(--bone-dim); margin-top:4px; font-style:italic}
   .meter.cold{border-left-color:var(--cold); border-right-color:var(--cold)} .meter.cold .word{color:var(--cold)}
   .meter.warm{border-left-color:var(--warm); border-right-color:var(--warm)} .meter.warm .word{color:var(--warm)}
   .meter.hot{border-left-color:var(--hot); border-right-color:var(--hot)} .meter.hot .word{color:var(--hot)}
@@ -90,7 +94,7 @@
   button{
     font-family:'IM Fell English SC', serif; letter-spacing:.12em;
     border:1px solid var(--line); border-radius:2px;
-    padding:14px 16px; font-size:16px; cursor:pointer; touch-action:manipulation;
+    padding:14px 16px; font-size:23px; cursor:pointer; touch-action:manipulation;
     background:var(--crypt); color:var(--bone);
   }
   .btn-primary{
@@ -108,7 +112,7 @@
   button:active{transform:scale(.985)}
 
   input[type=text]{
-    width:100%; font-size:18px; padding:13px 12px; margin:12px 0 8px;
+    width:100%; font-size:26px; padding:13px 12px; margin:12px 0 8px;
     border:1px solid var(--line); border-radius:2px;
     background:#0f0d0a; color:var(--bone); font-family:'IM Fell English', serif;
   }
@@ -117,10 +121,10 @@
 
   .hintrevealed{
     border-left:2px solid var(--gold); padding:10px 14px; margin-top:12px;
-    background:rgba(201,162,39,.06); font-style:italic; font-size:15.5px;
+    background:rgba(201,162,39,.06); font-style:italic; font-size:22px;
   }
-  .hintrevealed b{font-family:'IM Fell English SC',serif; color:var(--gold); font-style:normal; font-weight:normal; letter-spacing:.1em; font-size:12.5px}
-  .wrong{color:var(--blood-lit); font-size:14px; min-height:20px; margin:0; font-style:italic}
+  .hintrevealed b{font-family:'IM Fell English SC',serif; color:var(--gold); font-style:normal; font-weight:normal; letter-spacing:.1em; font-size:18px}
+  .wrong{color:var(--blood-lit); font-size:20px; min-height:20px; margin:0; font-style:italic}
 
   .portrait-frame{
     width:190px; height:238px; margin:6px auto 14px; position:relative;
@@ -135,9 +139,9 @@
   }
   .portrait-frame img{width:100%; height:100%; object-fit:cover; object-position:top;
     filter:sepia(.25) contrast(1.05) brightness(.92);}
-  .portrait-frame .placeholder{color:var(--line); font-size:56px}
+  .portrait-frame .placeholder{color:var(--line); font-size:81px}
   .portrait-caption{
-    text-align:center; font-family:'IM Fell English SC',serif; font-size:13px;
+    text-align:center; font-family:'IM Fell English SC',serif; font-size:19px;
     letter-spacing:.26em; color:var(--gold); margin-bottom:4px;
   }
   .victory-frame{
@@ -157,28 +161,28 @@
     border-radius:2px; padding:30px 30px; text-align:center; max-width:340px;
     box-shadow:0 0 60px rgba(201,162,39,.2);
   }
-  #celebrate .msg .big{font-size:34px; margin-bottom:8px}
-  #c-title{font-size:19px; font-style:italic; margin-bottom:6px}
+  #celebrate .msg .big{font-size:49px; margin-bottom:8px}
+  #c-title{font-size:28px; font-style:italic; margin-bottom:6px}
   canvas#confetti{position:fixed; inset:0; pointer-events:none; z-index:60}
 
   .banner{
-    font-size:14px; border:1px solid var(--cold); padding:10px 14px; margin-bottom:14px;
+    font-size:20px; border:1px solid var(--cold); padding:10px 14px; margin-bottom:14px;
     background:rgba(79,107,125,.08); font-style:italic;
   }
-  .small{font-size:13px; color:var(--bone-dim); font-style:italic}
+  .small{font-size:19px; color:var(--bone-dim); font-style:italic}
   .center{text-align:center}
   .lore-head{
-    font-family:'UnifrakturMaguntia',cursive; font-size:24px; color:var(--gold);
+    font-family:'UnifrakturMaguntia',cursive; font-size:35px; color:var(--gold);
     text-align:center; margin-bottom:4px;
   }
   .lore-sub{
-    text-align:center; font-family:'IM Fell English SC',serif; font-size:12px;
+    text-align:center; font-family:'IM Fell English SC',serif; font-size:17px;
     letter-spacing:.3em; color:var(--bone-dim); margin-bottom:14px;
   }
-  .lore-body{font-size:16.5px; line-height:1.7}
+  .lore-body{font-size:24px; line-height:1.7}
   .lore-img{margin:0 0 14px; border:1px solid var(--line); padding:6px; background:rgba(0,0,0,.3)}
   .lore-img img{width:100%; display:block; filter:sepia(.28) contrast(1.04) brightness(.94)}
-  .lore-credit{font-size:10px; color:#5c503c; text-align:right; margin-top:4px; font-style:italic}
+  .lore-credit{font-size:14px; color:#5c503c; text-align:right; margin-top:4px; font-style:italic}
   .lore-body em{color:var(--gold)}
   @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important} }
 </style>
@@ -187,7 +191,30 @@
 <div id="app">
   <header id="hdr">
     <h1>The Quest of St. Mary</h1>
-    <p class="subtitle">equal parts intellect and heart</p>
+    <div class="bee" aria-hidden="true">
+      <svg viewBox="0 0 100 92" width="46" height="42" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M46.5 11 C43 5 37 2.5 32.5 5.5"/>
+        <path d="M53.5 11 C57 5 63 2.5 67.5 5.5"/>
+        <circle cx="50" cy="17" r="6"/>
+        <ellipse cx="25" cy="25" rx="21" ry="9.5" transform="rotate(-24 25 25)"/>
+        <ellipse cx="75" cy="25" rx="21" ry="9.5" transform="rotate(24 75 25)"/>
+        <path d="M13 19.5 C22 22 33 27 41.5 31" stroke-width="1.6"/>
+        <path d="M87 19.5 C78 22 67 27 58.5 31" stroke-width="1.6"/>
+        <ellipse cx="29.5" cy="40.5" rx="13" ry="6" transform="rotate(-12 29.5 40.5)"/>
+        <ellipse cx="70.5" cy="40.5" rx="13" ry="6" transform="rotate(12 70.5 40.5)"/>
+        <path d="M42 33 C34 34 28 32 23 27" stroke-width="1.8"/>
+        <path d="M58 33 C66 34 72 32 77 27" stroke-width="1.8"/>
+        <path d="M42.5 44 C35 48 30 49 24 47" stroke-width="1.8"/>
+        <path d="M57.5 44 C65 48 70 49 76 47" stroke-width="1.8"/>
+        <path d="M44 54 C39 61 35 66 29 68" stroke-width="1.8"/>
+        <path d="M56 54 C61 61 65 66 71 68" stroke-width="1.8"/>
+        <circle cx="50" cy="32" r="9"/>
+        <path d="M42 40.5 C38.5 55 43 72 50 80 C57 72 61.5 55 58 40.5"/>
+        <path d="M41.5 50 C46 52.5 54 52.5 58.5 50" stroke-width="1.8"/>
+        <path d="M42.5 59 C46.5 61.5 53.5 61.5 57.5 59" stroke-width="1.8"/>
+        <path d="M45 68 C47.5 70 52.5 70 55 68" stroke-width="1.8"/>
+      </svg>
+    </div>
     <hr class="rule">
   </header>
 
@@ -234,7 +261,7 @@ const STOPS = [
  },
  { name:"The Columns", geo:null,
    riddle:"But every hunt must first be fed.\nFind the grove that never grew:\nwhite trunks raised by hands long dead,\nsquare of bark and straight of root,\nwhere a homesick king of smoke once slept\nand porches watch the avenue.\nBeneath those branches take your seat;\norder wisely, and we begin.",
-   way:"<b>the way</b> — 3811 St. Charles Avenue, southwest along the avenue. Lunch is fair play.",
+   way:"<b>the way</b> — Southwest along St. Charles Avenue. Lunch is fair play.",
    hints:[
      "What forest is planted by masons, not rain?",
      "An avenue of mansions; one wears its grove out front and serves lunch beneath it.",
@@ -267,7 +294,7 @@ const STOPS = [
  },
  { name:"Lafayette Cemetery No. 1", geo:{lat:29.9288342, lon:-90.0845229},
    riddle:"The quietest folk in all the ward\nkeep no quarrel, share no bread.\nTheir garden gate is locked and barred;\nyou may not walk among the dead.\nOne carved year began their rest:\nspeak it aloud, and pass the test.",
-   way:"<b>the way</b> — From the streetcar stop, one block southeast on Washington. The gates face you at Prytania.",
+   way:"<b>the way</b> — From the streetcar stop, southeast on Washington. The gates face you at Prytania.",
    hints:[
      "Seven thousand neighbors, and not one has ever complained of the noise.",
      "Washington at Prytania. The city of the dead you may only greet through iron.",
@@ -300,7 +327,7 @@ const STOPS = [
  },
  { name:"The Cornstalk Fence", geo:{lat:29.9297569, lon:-90.0843892},
    riddle:"No rain shall rot, no crow shall reap\nthe harvest at this garden's rim,\nsown by a man whose bride would weep\nfor prairie fields grown dear to him.\nEach winter kills it not at all,\neach summer feeds no mouth alive:\nwhat strange crop, along what wall,\nwas never planted, yet will thrive?",
-   way:"<b>the way</b> — One block northeast along Prytania, to Fourth Street.",
+   way:"<b>the way</b> — Northeast along Prytania, to Fourth Street.",
    hints:[
      "A crop that a blacksmith could grow and a locust could starve on.",
      "A homesick wife, an iron gift. Walk Prytania toward Fourth and watch the fences.",
@@ -315,7 +342,7 @@ const STOPS = [
  },
  { name:"The Anne Rice House", geo:{lat:29.9297860, lon:-90.0801445},
    riddle:"A woman gave the grave a tongue\nand made her deathless lovers young;\nher witches kept a storied hall\non the First of streets, most loved of all.\nHer iron bears a living sign:\nname the flower that will not pine.",
-   way:"<b>the way</b> — Three blocks northeast on Prytania, then one southeast on First, to Chestnut.",
+   way:"<b>the way</b> — Northeast on Prytania, then southeast on First, to Chestnut.",
    hints:[
      "She interviewed a man who could never grow old, and buried her witches two blocks from here.",
      "First Street at Chestnut, the grand Greek Revival. Look closely at the fence.",
@@ -330,7 +357,7 @@ const STOPS = [
  },
  { name:"Buckner Mansion", geo:{lat:29.9319568, lon:-90.0790925},
    riddle:"Eight-and-forty limbs of white\nuphold a house that is not home;\na screen-born coven spent one night\nand left me to the dust alone.\nMy gates are shut, my grounds are still:\ncount my limbs, if count you will.",
-   way:"<b>the way</b> — Two blocks northeast on Chestnut to Jackson, then one northwest to Coliseum.",
+   way:"<b>the way</b> — Northeast on Chestnut to Jackson, then northwest to Coliseum.",
    hints:[
      "Television witches schooled here, though the real ones never did.",
      "Jackson Avenue. The grandest house on it, wearing a forest of white.",
@@ -345,7 +372,7 @@ const STOPS = [
  },
  { name:"The Roof", geo:{lat:29.9350837, lon:-90.0796890},
    riddle:"You walked among the sleeping dead,\npast iron corn and witches' walls;\nnow climb to where the cat once fled,\na tin roof hot above Saint Charles.\nEleven floors the tower knows;\nthe river bends, the sun drops slow.\nTwo glasses stand there, silver-dry:\ndrink to the hunt, the roof, the sky.",
-   way:"<b>the way</b> — One block northwest to the avenue, then northeast along St. Charles. Ride to the eleventh floor.",
+   way:"<b>the way</b> — Northwest to the avenue, then northeast along St. Charles. Ride to the eleventh floor.",
    hints:[
      "A thirsty playwright named your ride an hour ago; his cat names your destination.",
      "An old hotel on the avenue keeps its bar closest to heaven. Ask for the roof.",
@@ -383,8 +410,9 @@ function onPos(p){
   if(S.screen!=="clue"||S.arrived||S.done) return;
   const t=STOPS[S.stop];
   if(!t.geo) return;
+  curPos={lat:p.coords.latitude, lon:p.coords.longitude};
   lastDist = haversine(p.coords.latitude,p.coords.longitude,t.geo.lat,t.geo.lon);
-  updateMeter();
+  updateMeter(); updateCompass();
   if(lastDist<=UNLOCK_RADIUS) reached();
 }
 function haversine(a,b,c,d){
@@ -392,6 +420,42 @@ function haversine(a,b,c,d){
   const dLat=r(c-a), dLon=r(d-b);
   const h=Math.sin(dLat/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(dLon/2)**2;
   return 2*R*Math.asin(Math.sqrt(h));
+}
+let curPos=null, deviceHeading=null;
+function bearingTo(lat1,lon1,lat2,lon2){
+  const r=x=>x*Math.PI/180;
+  const y=Math.sin(r(lon2-lon1))*Math.cos(r(lat2));
+  const x=Math.cos(r(lat1))*Math.sin(r(lat2))-Math.sin(r(lat1))*Math.cos(r(lat2))*Math.cos(r(lon2-lon1));
+  return (Math.atan2(y,x)*180/Math.PI+360)%360;
+}
+function cardinalName(b){
+  const names=["north","northeast","east","southeast","south","southwest","west","northwest"];
+  return names[Math.round(b/45)%8];
+}
+function updateCompass(){
+  const g=document.getElementById("needleG"), note=document.getElementById("compassNote");
+  if(!g||!note) return;
+  const t=STOPS[S.stop];
+  if(!t.geo||!curPos){ note.textContent="reading the sky\u2026"; return; }
+  const b=bearingTo(curPos.lat,curPos.lon,t.geo.lat,t.geo.lon);
+  const rot=(deviceHeading!=null)?(b-deviceHeading):b;
+  g.style.transform="rotate("+rot+"deg)";
+  note.textContent="the next seal lies to the "+cardinalName(b);
+}
+function attachOrientation(){
+  window.addEventListener("deviceorientation", function(e){
+    let h=null;
+    if(typeof e.webkitCompassHeading==="number") h=e.webkitCompassHeading;
+    else if(e.absolute && typeof e.alpha==="number") h=(360-e.alpha)%360;
+    if(h!=null){ deviceHeading=h; updateCompass(); }
+  }, true);
+}
+function requestOrientation(){
+  try{
+    if(typeof DeviceOrientationEvent!=="undefined" && DeviceOrientationEvent.requestPermission){
+      DeviceOrientationEvent.requestPermission().then(function(s){ if(s==="granted") attachOrientation(); }).catch(function(){});
+    } else attachOrientation();
+  }catch(e){}
 }
 function meterState(m){
   if(m==null) return {cls:"", word:"Reading the stars…", sub:"walk on; the sky will speak"};
@@ -486,7 +550,7 @@ function refOverride(){
 function esc(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 function portraitHTML(caption){
   return `<div class="portrait-frame"><div class="inner">${
-    PORTRAIT ? `<img src="${PORTRAIT}" alt="the huntress">` : `<div class="placeholder">⚜</div>`
+    PORTRAIT ? `<img src="${PORTRAIT}" alt="St. Mary">` : `<div class="placeholder">⚜</div>`
   }</div></div><div class="portrait-caption">${caption}</div>`;
 }
 function render(){
@@ -497,7 +561,7 @@ function render(){
     strip.style.display="none"; dots.style.display="none";
     scr.innerHTML=`
       <div class="card center">
-        ${portraitHTML("the huntress")}
+        ${portraitHTML("St. Mary")}
         <p class="riddle" style="text-align:left">Claire. A quest is laid before you.\nThe dead, the witch, the iron harvest\nall wait to learn the victor's name.</p>
         <p class="small" style="margin:14px 0 4px">Hints wait beneath every riddle; open as many as you please.\nThe referee walks beside you and settles all disputes.</p>
         <button class="btn-primary" style="margin-top:14px" onclick="begin()">Break the first seal</button>
@@ -514,10 +578,10 @@ function render(){
     scr.innerHTML=`
       <div class="card center">
         <div class="victory-frame">${
-          VICTORY ? `<img src="${VICTORY}" alt="the victor">` : `<div style="font-size:56px; padding:30px 0; color:var(--line)">👑</div>`
+          VICTORY ? `<img src="${VICTORY}" alt="the victor">` : `<div style="font-size:81px; padding:30px 0; color:var(--line)">👑</div>`
         }</div>
         <h2 class="lore-head">The quest is beaten</h2>
-        <p class="tasktext" style="text-align:center">Congratulations, huntress. The dead, the witch,\nand the iron harvest all know your name now.\nThe Keeper bows.</p>
+        <p class="tasktext" style="text-align:center">Congratulations, St. Mary. The dead, the witch,\nand the iron harvest all know your name now.\nThe Keeper bows.</p>
       </div>
       <button class="btn-ghost" onclick="if(confirm('Reset the whole quest?')){localStorage.removeItem('msq4');location.reload()}">Reset the quest</button>`;
     return;
@@ -556,11 +620,23 @@ function render(){
         ${hintBlock}
       </div>
       <div class="meter ${mst.cls}" id="meter">
+        <div class="compass">
+          <svg viewBox="0 0 80 80" width="66" height="66">
+            <circle cx="40" cy="40" r="29" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".55"/>
+            <text x="40" y="9" text-anchor="middle" font-size="10" fill="currentColor" font-family="serif">N</text>
+            <g id="needleG" style="transform-origin:40px 40px; transition:transform .4s ease">
+              <path d="M40 15 L46 46 L40 40.5 L34 46 Z" fill="#c9a227" stroke="none"/>
+            </g>
+            <circle cx="40" cy="40" r="2.4" fill="currentColor"/>
+          </svg>
+          <div class="compass-note" id="compassNote">reading the sky…</div>
+        </div>
         <div class="word">${mst.word}</div>
         <div class="hintline">${mst.sub}</div>
       </div>
       ${hintBtn}
       ${S.manual?`<button class="btn-ghost" style="margin-top:10px" onclick="refOverride()">Referee: we stand upon it</button>`:""}`;
+    updateCompass();
   } else {
     const t=st.tasks[S.task];
     const multi=st.tasks.length>1 ? ` &middot; task ${S.task+1} of ${st.tasks.length}` : "";
@@ -578,7 +654,7 @@ function render(){
       ${(!st.geo)?hintBtn:""}`;
   }
 }
-function begin(){ S.screen="clue"; save(); render(); startGeo(); keepAwake(); }
+function begin(){ S.screen="clue"; save(); render(); startGeo(); keepAwake(); requestOrientation(); }
 
 function burst(){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -611,7 +687,7 @@ if(location.search.includes("reset")){
   history.replaceState(null, "", location.pathname);
 }
 render();
-if(S.screen!=="start" && !S.done){ startGeo(); keepAwake(); }
+if(S.screen!=="start" && !S.done){ startGeo(); keepAwake(); document.body.addEventListener("click", requestOrientation, {once:true}); }
 </script>
 </body>
 </html>
