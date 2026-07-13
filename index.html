@@ -189,7 +189,7 @@
 </head>
 <body>
 <div id="app">
-  <div style="position:fixed; top:6px; right:10px; font-size:12px; color:#4d4233; font-family:serif; z-index:99">v25</div>
+  <div style="position:fixed; top:6px; right:10px; font-size:12px; color:#4d4233; font-family:serif; z-index:99">v26</div>
   <header id="hdr">
     <h1>The Quest of St. Mary</h1>
     <div class="bee" aria-hidden="true">
@@ -655,6 +655,16 @@ function sfxVictory(){
 
 /* ═══════════ MUSIC (synthesized, start + final screens only) ═══════════ */
 let MUS = {master:null, nodes:[], timers:[], mode:null};
+function reviveAudio(){
+  try{
+    audioInit();
+    if(!AC) return;
+    if(S.screen==="start" && MUS.mode!=="drone"){ MUS.mode=null; startDrone(); }
+    else if(S.screen==="final" && MUS.mode!=="victory"){ MUS.mode=null; startVictoryMusic(); }
+  }catch(e){}
+}
+document.addEventListener("visibilitychange", function(){ if(document.visibilityState==="visible") setTimeout(reviveAudio, 300); });
+document.addEventListener("touchend", function(){ try{ if(AC && AC.state==="suspended") AC.resume(); }catch(e){} }, true);
 function stopMusic(){
   try{
     MUS.timers.forEach(clearInterval); MUS.timers=[];
