@@ -189,7 +189,7 @@
 </head>
 <body>
 <div id="app">
-  <div style="position:fixed; top:6px; right:10px; font-size:12px; color:#4d4233; font-family:serif; z-index:99">v27</div>
+  <div style="position:fixed; top:6px; right:10px; font-size:12px; color:#4d4233; font-family:serif; z-index:99">v28</div>
   <header id="hdr">
     <h1>The Quest of St. Mary</h1>
     <div class="bee" aria-hidden="true">
@@ -246,7 +246,7 @@ const UNLOCK_RADIUS = 75;
 
 const STOPS = [
  { name:"The Toast", geo:null,
-   riddle:"Every quest begins with a toast:\nraise the golden cup and drink\nto roads unwalked and seals unbroken,\ndown to the last bright brink.\nThen hold your glass turned upside down\nto prove your strength of hand:\nthe first clue will reveal itself\nright there where you stand.",
+   riddle:"Every quest begins with a toast:\nraise the chalice and drink\nto roads unwalked and seals unbroken,\ndown to the last bright brink.\nThen hold your glass turned upside down\nto prove your strength of hand:\nthe first clue will reveal itself\nright there where you stand.",
    way:"",
    hints:[
      "What the mead conceals, the emptiness reveals.",
@@ -490,8 +490,9 @@ function render(){
   if(S.screen==="start"){
     strip.style.display="none"; dots.style.display="none";
     setTimeout(function(){
-      document.body.addEventListener("touchend", startDrone, {once:true});
-      document.body.addEventListener("click", startDrone, {once:true});
+      ["pointerdown","touchstart","touchend","click"].forEach(function(ev){
+        document.body.addEventListener(ev, startDrone, {passive:true});
+      });
     }, 50);
     scr.innerHTML=`
       <div class="card center">
@@ -685,10 +686,10 @@ function startDrone(){
   try{
     const t=AC.currentTime;
     const master=AC.createGain(); master.gain.setValueAtTime(0.0001,t);
-    master.gain.exponentialRampToValueAtTime(0.09,t+4);
+    master.gain.exponentialRampToValueAtTime(0.13,t+4);
     master.connect(AC.destination); MUS.master=master;
     const lp=AC.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value=320; lp.connect(master);
-    [[73.42,1],[73.42*1.006,0.8],[110,0.55],[233.08,0.1]].forEach(function(pt){
+    [[73.42,1],[73.42*1.006,0.8],[110,0.55],[146.83,0.4],[220,0.22],[233.08,0.12]].forEach(function(pt){
       const o=AC.createOscillator(), g=AC.createGain();
       o.type = pt[0]>200 ? "sine" : "sawtooth";
       o.frequency.value=pt[0]; g.gain.value=pt[1];
@@ -713,15 +714,15 @@ function startDrone(){
         o.type="triangle"; o.frequency.value=f;
         const st=t0+i*0.95, du=0.9;
         g.gain.setValueAtTime(0.0001,st);
-        g.gain.exponentialRampToValueAtTime(0.4,st+0.12);
-        g.gain.setValueAtTime(0.4,st+du*0.7);
+        g.gain.exponentialRampToValueAtTime(0.6,st+0.12);
+        g.gain.setValueAtTime(0.6,st+du*0.7);
         g.gain.exponentialRampToValueAtTime(0.0001,st+du+0.25);
         o.connect(lp2); lp2.connect(g); g.connect(MUS.master);
         o.start(st); o.stop(st+du+0.3);
       });
       if(Math.random()<0.5) sfxBell(87.31,8.5,5.0,0.05);
     }
-    setTimeout(chantOnce, 2500);
+    setTimeout(chantOnce, 1200);
     MUS.timers.push(setInterval(chantOnce, 15000));
   }catch(e){}
 }
