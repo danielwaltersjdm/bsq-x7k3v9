@@ -189,7 +189,7 @@
 </head>
 <body>
 <div id="app">
-  <div style="position:fixed; top:6px; right:10px; font-size:12px; color:#4d4233; font-family:serif; z-index:99">v24</div>
+  <div style="position:fixed; top:6px; right:10px; font-size:12px; color:#4d4233; font-family:serif; z-index:99">v25</div>
   <header id="hdr">
     <h1>The Quest of St. Mary</h1>
     <div class="bee" aria-hidden="true">
@@ -692,9 +692,26 @@ function startDrone(){
     const bp=AC.createBiquadFilter(); bp.type="bandpass"; bp.frequency.value=480; bp.Q.value=0.6;
     const wg=AC.createGain(); wg.gain.value=0.05;
     wind.connect(bp); bp.connect(wg); wg.connect(master); wind.start(t); MUS.nodes.push(wind);
-    MUS.timers.push(setInterval(function(){
-      if(MUS.mode==="drone" && Math.random()<0.7) sfxBell(87.31,0,5.0,0.05);
-    }, 11000));
+    const chant=[174.61,164.81,174.61,146.83,164.81,130.81,146.83,146.83];
+    function chantOnce(){
+      if(MUS.mode!=="drone"||!MUS.master) return;
+      const t0=AC.currentTime+0.1;
+      chant.forEach(function(f,i){
+        const o=AC.createOscillator(), g=AC.createGain(), lp2=AC.createBiquadFilter();
+        lp2.type="lowpass"; lp2.frequency.value=700;
+        o.type="triangle"; o.frequency.value=f;
+        const st=t0+i*0.95, du=0.9;
+        g.gain.setValueAtTime(0.0001,st);
+        g.gain.exponentialRampToValueAtTime(0.4,st+0.12);
+        g.gain.setValueAtTime(0.4,st+du*0.7);
+        g.gain.exponentialRampToValueAtTime(0.0001,st+du+0.25);
+        o.connect(lp2); lp2.connect(g); g.connect(MUS.master);
+        o.start(st); o.stop(st+du+0.3);
+      });
+      if(Math.random()<0.5) sfxBell(87.31,8.5,5.0,0.05);
+    }
+    setTimeout(chantOnce, 2500);
+    MUS.timers.push(setInterval(chantOnce, 15000));
   }catch(e){}
 }
 function startVictoryMusic(){
@@ -705,26 +722,36 @@ function startVictoryMusic(){
     const master=AC.createGain(); master.gain.setValueAtTime(0.0001,t);
     master.gain.exponentialRampToValueAtTime(0.07,t+2.5);
     master.connect(AC.destination); MUS.master=master;
-    const chords=[[130.81,164.81,196.00],[174.61,220.00,261.63],[196.00,246.94,293.66],[130.81,164.81,196.00]];
-    let step=0;
-    function playChord(){
-      if(MUS.mode!=="victory") return;
-      const now=AC.currentTime, ch=chords[step%chords.length];
-      ch.forEach(function(f){
+    const N={C:261.63,D:293.66,E:329.63,F:349.23,G:392.00};
+    const mel=[["E",1],["E",1],["F",1],["G",1],["G",1],["F",1],["E",1],["D",1],["C",1],["C",1],["D",1],["E",1],["E",1.5],["D",0.5],["D",2],
+               ["E",1],["E",1],["F",1],["G",1],["G",1],["F",1],["E",1],["D",1],["C",1],["C",1],["D",1],["E",1],["D",1.5],["C",0.5],["C",2]];
+    const beat=0.42;
+    [130.81,164.81,196.00].forEach(function(f){
+      const o=AC.createOscillator(), g=AC.createGain(), lp=AC.createBiquadFilter();
+      lp.type="lowpass"; lp.frequency.value=600;
+      o.type="sawtooth"; o.frequency.value=f; g.gain.value=0.16;
+      o.connect(lp); lp.connect(g); g.connect(master); o.start(t); MUS.nodes.push(o);
+    });
+    function playTune(){
+      if(MUS.mode!=="victory"||!MUS.master) return;
+      let t0=AC.currentTime+0.15;
+      sfxBell(261.63,0,2.6,0.1);
+      mel.forEach(function(nd){
+        const f=N[nd[0]], d=nd[1]*beat;
         const o=AC.createOscillator(), g=AC.createGain(), lp=AC.createBiquadFilter();
-        lp.type="lowpass"; lp.frequency.value=900;
+        lp.type="lowpass"; lp.frequency.value=1200;
         o.type="sawtooth"; o.frequency.value=f;
-        g.gain.setValueAtTime(0.0001,now);
-        g.gain.exponentialRampToValueAtTime(0.5,now+0.8);
-        g.gain.setValueAtTime(0.5,now+2.2); g.gain.exponentialRampToValueAtTime(0.0001,now+3.2);
-        o.connect(lp); lp.connect(g); g.connect(master);
-        o.start(now); o.stop(now+3.3);
+        g.gain.setValueAtTime(0.0001,t0);
+        g.gain.exponentialRampToValueAtTime(0.4,t0+0.04);
+        g.gain.setValueAtTime(0.4,t0+d*0.78);
+        g.gain.exponentialRampToValueAtTime(0.0001,t0+d+0.08);
+        o.connect(lp); lp.connect(g); g.connect(MUS.master);
+        o.start(t0); o.stop(t0+d+0.12);
+        t0+=d;
       });
-      if(step%2===0) sfxBell(ch[0]*2,0.3,2.6,0.09);
-      step++;
     }
-    playChord();
-    MUS.timers.push(setInterval(playChord, 2900));
+    playTune();
+    MUS.timers.push(setInterval(playTune, 17500));
   }catch(e){}
 }
 
