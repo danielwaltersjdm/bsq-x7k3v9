@@ -322,7 +322,7 @@ const STOPS = [
  },
  { name:"The Cornstalk Fence", geo:{lat:29.9297569, lon:-90.0843892},
    riddle:"No rain shall rot, no crow shall reap\nthe harvest at this garden's rim,\nsown by a man whose bride would weep\nfor prairie fields grown dear to him.\nEach winter kills it not at all,\neach summer feeds no mouth alive:\nwhat strange crop, along what wall,\nwas never planted, yet will thrive?",
-   way:"<b>the way</b> — Head northeast.",
+   way:"<b>the way</b> — Head northeast on Prytania, one block.",
    hints:[
      "A crop that a blacksmith could grow and a locust could starve on.",
      "A homesick wife, an iron gift. Walk Prytania toward Fourth and watch the fences."
@@ -335,10 +335,10 @@ const STOPS = [
    lore:{img:"img/cornstalk.jpg", credit:"Arnold Genthe, Library of Congress, public domain", title:"The Cornstalk Fence", body:"<em>The crop never planted is corn, cast in iron around Colonel Short's Villa in 1859.</em> Colonel Robert Short's wife was homesick for the cornfields of her girlhood, so he ordered her a harvest that no drought, crow, or Louisiana summer could touch, complete with morning glories twining the stalks. It has outlived the colonel, the bride, and every real cornfield she missed. It is the most photographed fence in a neighborhood that takes its fences very seriously."}
  },
  { name:"The Anne Rice House", geo:{lat:29.9297860, lon:-90.0801445},
-   riddle:"A woman gave the grave a tongue\nand made her deathless lovers young;\nher witches kept a storied hall\non the First of streets, most loved of all.\nHer iron bears a living sign:\nname the flower that will not pine.",
-   way:"<b>the way</b> — Head northeast, then southeast.",
+   riddle:"A woman gave the grave a tongue:\nshe Interviewed a Vampire young,\nand here her witches kept their hall\non the First of streets, most loved of all.\nHer iron bears a living sign:\nname the flower that will not pine.",
+   way:"<b>the way</b> — Head northeast on Prytania, then southeast on First, to Chestnut.",
    hints:[
-     "Her most famous interview was with a vampire. Her witches kept the house you seek.",
+     "Louis and Lestat were born in her head. Her house hides two blocks from the dead.",
      "First Street at Chestnut, the grand Greek Revival. Look closely at the fence."
    ],
    tasks:[
@@ -352,15 +352,15 @@ const STOPS = [
    riddle:"You walked among the sleeping dead,\npast iron corn and witches' walls;\nnow climb to where the cat once fled,\na tin roof hot above Saint Charles.\nEleven floors the tower knows;\nthe river bends, the sun drops slow.\nTwo glasses stand there, silver-dry:\ndrink to the hunt, the roof, the sky.",
    way:"<b>the way</b> — Head northwest, then northeast. Ride to the eleventh floor.",
    hints:[
-     "A thirsty playwright named your ride an hour ago; his cat names your destination.",
-     "An old hotel on the avenue keeps its bar closest to heaven. Ask for the roof."
+     "A thirsty Southern playwright. You rode through one of his titles this afternoon.",
+     "His cat gave this bar its name."
    ],
    tasks:[
-     {type:"input", check:"any", words:["bridge","crescent","connection"],
-      prompt:"Look south, past the river's bend.\nTwin crescents of steel cross the water there.\nName what you see, and the quest is yours.",
-      placeholder:"What do you see?"}
+     {type:"input", check:"any", words:["williams","tennessee"],
+      prompt:"One ghost has walked beside you all day:\nhe named the wyrm you rode,\nand the roof on which you stand.\nSpeak his name, and the quest is yours.",
+      placeholder:"His name"}
    ],
-   lore:{img:"img/bridge.jpg", credit:"Infrogmation of New Orleans, CC BY-SA 4.0", title:"The Roof", body:"<em>The cat that fled up here belongs to Tennessee Williams, who lived in this hotel, the Pontchartrain, while shaping A Streetcar Named Desire: the wyrm you rode this afternoon runs through his title, and this bar is named for his hot tin roof.</em> The steel you named is the Crescent City Connection, twin spans over the river since 1958. Eleven floors up, the whole quest lies below you: the avenue, the oaks, the river's bend. These glasses are silver and dry. Drink slowly. You have earned the view."}
+   lore:{img:"img/bridge.jpg", credit:"Infrogmation of New Orleans, CC BY-SA 4.0", title:"The Roof", body:"<em>The name is Tennessee Williams, who lived in this hotel, the Pontchartrain, while shaping A Streetcar Named Desire: the wyrm you rode runs through his title, and this bar is named for his hot tin roof.</em> Eleven floors up, the whole quest lies below you: the avenue, the oaks, the river's bend, and the twin steel crescents of the Crescent City Connection. These glasses are silver and dry. Drink slowly. You have earned the view."}
  }
 ];
 
