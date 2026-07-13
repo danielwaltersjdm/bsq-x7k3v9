@@ -176,6 +176,9 @@
     letter-spacing:.3em; color:var(--bone-dim); margin-bottom:14px;
   }
   .lore-body{font-size:16.5px; line-height:1.7}
+  .lore-img{margin:0 0 14px; border:1px solid var(--line); padding:6px; background:rgba(0,0,0,.3)}
+  .lore-img img{width:100%; display:block; filter:sepia(.28) contrast(1.04) brightness(.94)}
+  .lore-credit{font-size:10px; color:#5c503c; text-align:right; margin-top:4px; font-style:italic}
   .lore-body em{color:var(--gold)}
   @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important} }
 </style>
@@ -245,11 +248,11 @@ const STOPS = [
       prompt:"Order it, said just so, and the server brings more than a drink.\nType the word the paper bears.",
       placeholder:"The word on the paper"}
    ],
-   lore:{title:"The Columns", body:"<em>A grove that never once grew up: the white trunks are columns, planted by masons in 1883.</em> This was the private mansion of Simon Hernsheim, then the wealthiest cigar merchant in America, your homesick king of smoke; the word on your paper is his trade. The house kept its mahogany stairwell and stained glass through a century of reinvention, and it is now the last of the great St. Charles mansions you can simply walk into and order a drink. The paper is a writ of quest. Keep it."}
+   lore:{img:"img/columns.jpg", credit:"Infrogmation, CC BY-SA 4.0", title:"The Columns", body:"<em>A grove that never once grew up: the white trunks are columns, planted by masons in 1883.</em> This was the private mansion of Simon Hernsheim, then the wealthiest cigar merchant in America, your homesick king of smoke; the word on your paper is his trade. The house kept its mahogany stairwell and stained glass through a century of reinvention, and it is now the last of the great St. Charles mansions you can simply walk into and order a drink. The paper is a writ of quest. Keep it."}
  },
  { name:"The Streetcar", geo:null,
    riddle:"A rattling wyrm in green and brass\nhas crawled one road two hundred years.\nIt swallows all who pay to pass\nand, sated, spits them out in tiers.\nSeven times it stops and sighs;\nwhen Washington is called, arise.",
-   way:"<b>the way</b> — Board just outside and ride northeast, about seven stops, near a mile. Rise at Washington Avenue.",
+   way:"<b>the way</b> — Board just outside and ride northeast. Rise at Washington Avenue.",
    hints:[
      "It is older than any living thing on the avenue, and it hums when it hunts.",
      "Olive green, brass bones, never hurried. Feed it a coin and face northeast.",
@@ -260,7 +263,7 @@ const STOPS = [
       prompt:"Every wyrm of this line bears a number on its brow.\nType the number of the one that swallowed you.",
       placeholder:"Its number"}
    ],
-   lore:{title:"The Streetcar", body:"<em>The rattling wyrm is the St. Charles streetcar, which has crawled this one road since 1835: the oldest continuously operating street railway on Earth.</em> The olive-green cars are Perley Thomas originals from 1923, all brass fittings and mahogany seats, and the number you typed is stenciled on a car that has run this line for a century. It swallowed you at a mansion and spat you out among the dead, which is very in character for this city."}
+   lore:{img:"img/streetcar.jpg", credit:"Eric Pancer, CC BY 2.0", title:"The Streetcar", body:"<em>The rattling wyrm is the St. Charles streetcar, which has crawled this one road since 1835: the oldest continuously operating street railway on Earth.</em> The olive-green cars are Perley Thomas originals from 1923, all brass fittings and mahogany seats, and the number you typed is stenciled on a car that has run this line for a century. It swallowed you at a mansion and spat you out among the dead, which is very in character for this city."}
  },
  { name:"Lafayette Cemetery No. 1", geo:{lat:29.9288342, lon:-90.0845229},
    riddle:"The quietest folk in all the ward\nkeep no quarrel, share no bread.\nTheir garden gate is locked and barred;\nyou may not walk among the dead.\nOne carved year began their rest:\nspeak it aloud, and pass the test.",
@@ -275,7 +278,7 @@ const STOPS = [
       prompt:"Read the gates. Bring me the year their rest began.",
       placeholder:"The carved year"}
    ],
-   lore:{title:"Lafayette No. 1", body:"<em>The quietest folk who keep no quarrel are the roughly seven thousand New Orleanians resting here since the carved year, 1833.</em> This was the burial ground of the old City of Lafayette before New Orleans swallowed it, and its above-ground tombs filled fastest in the yellow fever summers, when whole families arrived within weeks of each other. Anne Rice's vampires prowled these paths in print and on film, which is why your next hostess lives only a few blocks away. The city keeps the gates locked for restoration. The residents have not complained."}
+   lore:{img:"img/cemetery.jpg", credit:"MusikAnimal, CC BY-SA 4.0", title:"Lafayette No. 1", body:"<em>The quietest folk who keep no quarrel are the roughly seven thousand New Orleanians resting here since the carved year, 1833.</em> This was the burial ground of the old City of Lafayette before New Orleans swallowed it, and its above-ground tombs filled fastest in the yellow fever summers, when whole families arrived within weeks of each other. Anne Rice's vampires prowled these paths in print and on film, which is why your next hostess lives only a few blocks away. The city keeps the gates locked for restoration. The residents have not complained."}
  },
  { name:"The Rink", geo:{lat:29.9300445, lon:-90.0848972},
    riddle:"Where wheels once sang on polished floors\nthe circling skaters turned to ghosts,\nand paper souls now line the shores,\na thousand lives on silent posts.\nOne guest is older than your tongue;\nhis mother's wrath was worse than his.\nFind him: his pages hold a word\nthat is not printed in the book.",
@@ -293,7 +296,7 @@ const STOPS = [
       prompt:"One task more before you go:\nbelow the books a potion hides,\nnight dressed up in morning's clothes,\nsleep's own color, sleep denied.\nOrder two by their true name,\nand drink to the halfway of this game.",
       placeholder:"Order it by name"}
    ],
-   lore:{title:"The Rink", body:"<em>Wheels once sang here because this was the Crescent City Skating Rink, built in 1884 when roller skating was a World's Fair craze.</em> The skaters gave way to shopkeepers, and the bookshop inside is where the Garden District buys its ghosts. The monster is Beowulf, some twelve hundred years old, whose mother remains literature's strongest argument for not troubling a quiet family; the word you found is how his story begins. The potion is yours; the bean wakes what the vodka loosens. Drink to the halfway."}
+   lore:{img:"img/beowulf.jpg", credit:"British Library, Cotton MS Vitellius A XV, public domain", title:"The Rink", body:"<em>Wheels once sang here because this was the Crescent City Skating Rink, built in 1884 when roller skating was a World's Fair craze.</em> The skaters gave way to shopkeepers, and the bookshop inside is where the Garden District buys its ghosts. The monster is Beowulf, some twelve hundred years old, whose mother remains literature's strongest argument for not troubling a quiet family; the word you found is how his story begins. The potion is yours; the bean wakes what the vodka loosens. Drink to the halfway."}
  },
  { name:"The Cornstalk Fence", geo:{lat:29.9297569, lon:-90.0843892},
    riddle:"No rain shall rot, no crow shall reap\nthe harvest at this garden's rim,\nsown by a man whose bride would weep\nfor prairie fields grown dear to him.\nEach winter kills it not at all,\neach summer feeds no mouth alive:\nwhat strange crop, along what wall,\nwas never planted, yet will thrive?",
@@ -308,7 +311,7 @@ const STOPS = [
       prompt:"Name the crop that was never planted, yet will thrive.",
       placeholder:"The crop"}
    ],
-   lore:{title:"The Cornstalk Fence", body:"<em>The crop never planted is corn, cast in iron around Colonel Short's Villa in 1859.</em> Colonel Robert Short's wife was homesick for the cornfields of her girlhood, so he ordered her a harvest that no drought, crow, or Louisiana summer could touch, complete with morning glories twining the stalks. It has outlived the colonel, the bride, and every real cornfield she missed. It is the most photographed fence in a neighborhood that takes its fences very seriously."}
+   lore:{img:"img/cornstalk.jpg", credit:"Arnold Genthe, Library of Congress, public domain", title:"The Cornstalk Fence", body:"<em>The crop never planted is corn, cast in iron around Colonel Short's Villa in 1859.</em> Colonel Robert Short's wife was homesick for the cornfields of her girlhood, so he ordered her a harvest that no drought, crow, or Louisiana summer could touch, complete with morning glories twining the stalks. It has outlived the colonel, the bride, and every real cornfield she missed. It is the most photographed fence in a neighborhood that takes its fences very seriously."}
  },
  { name:"The Anne Rice House", geo:{lat:29.9297860, lon:-90.0801445},
    riddle:"A woman gave the grave a tongue\nand made her deathless lovers young;\nher witches kept a storied hall\non the First of streets, most loved of all.\nHer iron bears a living sign:\nname the flower that will not pine.",
@@ -323,7 +326,7 @@ const STOPS = [
       prompt:"Look to her fence. What flower blooms there in iron,\nand will never pine, nor fade, nor fall?",
       placeholder:"The flower"}
    ],
-   lore:{title:"Rosegate", body:"<em>The flower blooming in iron is the rose: the fence's rosettes gave this 1857 house its name, Rosegate.</em> Anne Rice, the woman who gave the grave a tongue, bought it in 1989 and made it the Mayfair witches' ancestral home in The Witching Hour; her deathless lovers, Louis and Lestat, were dreamed a few blocks from here. She once launched a book by leaving this house in a coffin, in a jazz funeral she threw for herself. The neighbors coped."}
+   lore:{img:"img/rosegate.jpg", credit:"GlennetteClark, CC BY 2.0", title:"Rosegate", body:"<em>The flower blooming in iron is the rose: the fence's rosettes gave this 1857 house its name, Rosegate.</em> Anne Rice, the woman who gave the grave a tongue, bought it in 1989 and made it the Mayfair witches' ancestral home in The Witching Hour; her deathless lovers, Louis and Lestat, were dreamed a few blocks from here. She once launched a book by leaving this house in a coffin, in a jazz funeral she threw for herself. The neighbors coped."}
  },
  { name:"Buckner Mansion", geo:{lat:29.9319568, lon:-90.0790925},
    riddle:"Eight-and-forty limbs of white\nuphold a house that is not home;\na screen-born coven spent one night\nand left me to the dust alone.\nMy gates are shut, my grounds are still:\ncount my limbs, if count you will.",
@@ -338,11 +341,11 @@ const STOPS = [
       prompt:"The Keeper claims eight-and-forty limbs.\nThe Keeper has been known to lie.\nCount the columns yourself and give your tally.",
       placeholder:"Your count"}
    ],
-   lore:{title:"Buckner Mansion", body:"<em>Eight-and-forty limbs: the 48 fluted columns that cotton king Henry Buckner raised in 1856, reportedly to outshine a rival's mansion in Natchez.</em> For sixty years it housed the Soulé business college, and in 2013 television made it Miss Robichaux's Academy for Exceptional Young Ladies, the coven school of American Horror Story. The real house has witnessed no verified witchcraft. Whatever you counted, the columns will not confirm it after dark."}
+   lore:{img:"img/buckner.jpg", credit:"Jeff Hitchcock, CC BY 2.0", title:"Buckner Mansion", body:"<em>Eight-and-forty limbs: the 48 fluted columns that cotton king Henry Buckner raised in 1856, reportedly to outshine a rival's mansion in Natchez.</em> For sixty years it housed the Soulé business college, and in 2013 television made it Miss Robichaux's Academy for Exceptional Young Ladies, the coven school of American Horror Story. The real house has witnessed no verified witchcraft. Whatever you counted, the columns will not confirm it after dark."}
  },
  { name:"The Roof", geo:{lat:29.9350837, lon:-90.0796890},
    riddle:"You walked among the sleeping dead,\npast iron corn and witches' walls;\nnow climb to where the cat once fled,\na tin roof hot above Saint Charles.\nEleven floors the tower knows;\nthe river bends, the sun drops slow.\nTwo glasses stand there, silver-dry:\ndrink to the hunt, the roof, the sky.",
-   way:"<b>the way</b> — One block northwest to the avenue, then northeast along St. Charles, near a third of a mile. Ride to the eleventh floor.",
+   way:"<b>the way</b> — One block northwest to the avenue, then northeast along St. Charles. Ride to the eleventh floor.",
    hints:[
      "A thirsty playwright named your ride an hour ago; his cat names your destination.",
      "An old hotel on the avenue keeps its bar closest to heaven. Ask for the roof.",
@@ -353,7 +356,7 @@ const STOPS = [
       prompt:"Look south, past the river's bend.\nTwin crescents of steel cross the water there.\nName what you see, and the quest is yours.",
       placeholder:"What do you see?"}
    ],
-   lore:{title:"The Roof", body:"<em>The cat that fled up here belongs to Tennessee Williams, who lived in this hotel, the Pontchartrain, while shaping A Streetcar Named Desire: the wyrm you rode this afternoon runs through his title, and this bar is named for his hot tin roof.</em> The steel you named is the Crescent City Connection, twin spans over the river since 1958. Eleven floors up, the whole quest lies below you: the avenue, the oaks, the river's bend. These glasses are silver and dry. Drink slowly. You have earned the view."}
+   lore:{img:"img/bridge.jpg", credit:"Infrogmation of New Orleans, CC BY-SA 4.0", title:"The Roof", body:"<em>The cat that fled up here belongs to Tennessee Williams, who lived in this hotel, the Pontchartrain, while shaping A Streetcar Named Desire: the wyrm you rode this afternoon runs through his title, and this bar is named for his hot tin roof.</em> The steel you named is the Crescent City Connection, twin spans over the river since 1958. Eleven floors up, the whole quest lies below you: the avenue, the oaks, the river's bend. These glasses are silver and dry. Drink slowly. You have earned the view."}
  }
 ];
 
@@ -526,6 +529,7 @@ function render(){
   if(S.screen==="lore"){
     scr.innerHTML=`
       <div class="card">
+        ${st.lore.img?`<div class="lore-img"><img src="${st.lore.img}" alt=""><div class="lore-credit">${esc(st.lore.credit||"")}</div></div>`:""}
         <div class="lore-head">${esc(st.lore.title)}</div>
         <div class="lore-sub">the keeper's notes</div>
         <p class="lore-body">${st.lore.body}</p>
