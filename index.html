@@ -257,7 +257,7 @@ const STOPS = [
       prompt:"Solve the riddle.",
       placeholder:"Your answer"}
    ],
-   lore:{title:"The Toast", body:"<em>Skol: the toast of the mead halls, shouted over northern cups for a thousand years.</em> You drank mead on the night this all began, so the Keeper saw no reason to break tradition now. The cup is drained, the word is spoken, and the road is open. The first riddle waits at a white grove on the great avenue."}
+   lore:{title:"The Toast", body:"<em>Skol: the toast of the mead halls, shouted over northern cups for a thousand years.</em> You drank mead on the night this all began, so Lord Daniel saw no reason to break tradition now. The cup is drained, the word is spoken, and the road is open. The first riddle waits at a white grove on the great avenue."}
  },
  { name:"The Columns", geo:null,
    riddle:"But every hunt must first be fed.\nFind the grove that never grew:\nwhite trunks raised by hands long dead,\nsquare of bark and straight of root,\nwhere a homesick king of smoke once slept\nand porches watch the avenue.\nBeneath those branches take your seat;\norder wisely, and we begin.",
@@ -365,7 +365,7 @@ const STOPS = [
    ],
    tasks:[
      {type:"input", check:"range", min:44, max:52,
-      prompt:"The Keeper claims eight-and-forty limbs.\nThe Keeper has been known to lie.\nCount the columns yourself and give your tally.",
+      prompt:"Lord Daniel claims eight-and-forty limbs.\nLord Daniel has been known to lie.\nCount the columns yourself and give your tally.",
       placeholder:"Your count"}
    ],
    lore:{img:"img/buckner.jpg", credit:"Jeff Hitchcock, CC BY 2.0", title:"Buckner Mansion", body:"<em>Eight-and-forty limbs: the 48 fluted columns that cotton king Henry Buckner raised in 1856, reportedly to outshine a rival's mansion in Natchez.</em> For sixty years it housed the Soulé business college, and in 2013 television made it Miss Robichaux's Academy for Exceptional Young Ladies, the coven school of American Horror Story. The real house has witnessed no verified witchcraft. Whatever you counted, the columns will not confirm it after dark."}
@@ -514,7 +514,7 @@ function submitTask(){
   const v=document.getElementById("answer").value;
   if(checkAnswer(t,v)){ taskDone(); }
   else{
-    document.getElementById("wrong").textContent="Not so. Look again; the dead are patient, the Keeper less.";
+    document.getElementById("wrong").textContent="Not so. Look again; the dead are patient, Lord Daniel less.";
     if(navigator.vibrate) navigator.vibrate(120);
   }
 }
@@ -527,7 +527,7 @@ function taskDone(){
   } else {
     S.screen="lore";
     save();
-    celebrate("🗝️","The seal is broken","the Keeper would speak…");
+    celebrate("🗝️","The seal is broken","Lord Daniel would speak…");
   }
 }
 function nextStop(){
@@ -581,7 +581,7 @@ function render(){
           VICTORY ? `<img src="${VICTORY}" alt="the victor">` : `<div style="font-size:81px; padding:30px 0; color:var(--line)">👑</div>`
         }</div>
         <h2 class="lore-head">The quest is beaten</h2>
-        <p class="tasktext" style="text-align:center">Congratulations, St. Mary. The dead, the witch,\nand the iron harvest all know your name now.\nThe Keeper bows.</p>
+        <p class="tasktext" style="text-align:center">Congratulations, St. Mary. The dead, the witch,\nand the iron harvest all know your name now.\nLord Daniel bows.</p>
       </div>
       <button class="btn-ghost" onclick="if(confirm('Reset the whole quest?')){localStorage.removeItem('msq4');location.reload()}">Reset the quest</button>`;
     return;
@@ -595,7 +595,7 @@ function render(){
       <div class="card">
         ${st.lore.img?`<div class="lore-img"><img src="${st.lore.img}" alt=""><div class="lore-credit">${esc(st.lore.credit||"")}</div></div>`:""}
         <div class="lore-head">${esc(st.lore.title)}</div>
-        <div class="lore-sub">the keeper's notes</div>
+        <div class="lore-sub">lord daniel's notes</div>
         <p class="lore-body">${st.lore.body}</p>
       </div>
       <button class="btn-primary" onclick="nextStop()">${S.stop>=STOPS.length-1?"The final word":"Break the next seal"}</button>`;
