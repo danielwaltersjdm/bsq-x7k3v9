@@ -189,7 +189,7 @@
 </head>
 <body>
 <div id="app">
-  <div style="position:fixed; top:6px; right:10px; font-size:12px; color:#4d4233; font-family:serif; z-index:99">v26</div>
+  <div style="position:fixed; top:6px; right:10px; font-size:12px; color:#4d4233; font-family:serif; z-index:99">v27</div>
   <header id="hdr">
     <h1>The Quest of St. Mary</h1>
     <div class="bee" aria-hidden="true">
@@ -679,6 +679,7 @@ function stopMusic(){
   }catch(e){}
 }
 function startDrone(){
+  if(S.screen!=="start") return;
   audioInit(); if(!AC||MUS.mode==="drone") return;
   stopMusic(); MUS.mode="drone";
   try{
