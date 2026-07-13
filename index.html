@@ -189,7 +189,7 @@
 </head>
 <body>
 <div id="app">
-  <div style="position:fixed; top:6px; right:10px; font-size:12px; color:#4d4233; font-family:serif; z-index:99">v28</div>
+  <div style="position:fixed; top:6px; right:10px; font-size:12px; color:#4d4233; font-family:serif; z-index:99">v29</div>
   <header id="hdr">
     <h1>The Quest of St. Mary</h1>
     <div class="bee" aria-hidden="true">
@@ -462,7 +462,7 @@ function taskDone(){
 }
 function nextStop(){
   if(S.stop>=STOPS.length-1){ S.done=true; S.screen="final"; sfxVictory(); }
-  else{ S.stop++; S.task=0; S.arrived=false; S.screen="clue"; }
+  else{ S.stop++; S.task=0; S.arrived=false; S.screen="clue"; if(S.stop===1) stopMusic(); }
   save(); render();
 }
 
@@ -680,7 +680,7 @@ function stopMusic(){
   }catch(e){}
 }
 function startDrone(){
-  if(S.screen!=="start") return;
+  if(!(S.screen==="start"||(S.stop===0&&S.screen!=="final"))) return;
   audioInit(); if(!AC||MUS.mode==="drone") return;
   stopMusic(); MUS.mode="drone";
   try{
@@ -767,7 +767,7 @@ function startVictoryMusic(){
   }catch(e){}
 }
 
-function begin(){ audioInit(); stopMusic(); S.screen="clue"; save(); render(); startGeo(); keepAwake(); }
+function begin(){ audioInit(); S.screen="clue"; save(); render(); startGeo(); keepAwake(); startDrone(); }
 
 function burst(){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
