@@ -249,8 +249,7 @@ const STOPS = [
    way:"",
    hints:[
      "What the wine conceals, the emptiness reveals.",
-     "Every vessel has an underworld. Pay it a visit.",
-     "The word is beneath your champagne glass. Type it."
+     "Every vessel has an underworld. Pay it a visit."
    ],
    tasks:[
      {type:"input", check:"list", answers:["skol","skoal","skål","skal"],
@@ -264,8 +263,7 @@ const STOPS = [
    way:"<b>the way</b> — Southwest along St. Charles Avenue. Lunch is fair play.",
    hints:[
      "What forest is planted by masons, not rain?",
-     "An avenue of mansions; one wears its grove out front and serves lunch beneath it.",
-     "The Columns Hotel. Order the Gold Rush, and trust the server."
+     "An avenue of mansions; one wears its grove out front and serves lunch beneath it."
    ],
    tasks:[
      {type:"input", check:"contains", word:"gold",
@@ -282,8 +280,7 @@ const STOPS = [
    way:"<b>the way</b> — Board just outside and ride northeast. Rise at Washington Avenue.",
    hints:[
      "It is older than any living thing on the avenue, and it hums when it hunts.",
-     "Olive green, brass bones, never hurried. Feed it a coin and face northeast.",
-     "The St. Charles streetcar. Get off at Washington Avenue."
+     "Olive green, brass bones, never hurried. Feed it a coin and face northeast."
    ],
    tasks:[
      {type:"input", check:"range", min:900, max:999,
@@ -297,8 +294,7 @@ const STOPS = [
    way:"<b>the way</b> — From the streetcar stop, southeast on Washington. The gates face you at Prytania.",
    hints:[
      "Seven thousand neighbors, and not one has ever complained of the noise.",
-     "Washington at Prytania. The city of the dead you may only greet through iron.",
-     "Lafayette Cemetery No. 1. The year is 1833. Tell it to the app."
+     "Washington at Prytania. The city of the dead you may only greet through iron."
    ],
    tasks:[
      {type:"input", check:"list", answers:["1833"],
@@ -312,8 +308,7 @@ const STOPS = [
    way:"<b>the way</b> — Directly across Prytania from the cemetery gates, in the old skating rink.",
    hints:[
      "The old skating rink keeps a bookshop now; its shelves hold a monster older than England.",
-     "Ask the keeper of the books where Beowulf sleeps.",
-     "Garden District Book Shop, at The Rink. The note is inside Beowulf."
+     "Ask the keeper of the books where Beowulf sleeps."
    ],
    tasks:[
      {type:"input", check:"list", answers:["hwaet","hwæt","hwat"],
@@ -330,8 +325,7 @@ const STOPS = [
    way:"<b>the way</b> — Northeast along Prytania, to Fourth Street.",
    hints:[
      "A crop that a blacksmith could grow and a locust could starve on.",
-     "A homesick wife, an iron gift. Walk Prytania toward Fourth and watch the fences.",
-     "Colonel Short's Villa, 1448 Fourth St. The fence is made of corn. Type the crop."
+     "A homesick wife, an iron gift. Walk Prytania toward Fourth and watch the fences."
    ],
    tasks:[
      {type:"input", check:"list", answers:["corn","cornstalks","cornstalk","corn stalks","maize"],
@@ -345,8 +339,7 @@ const STOPS = [
    way:"<b>the way</b> — Northeast on Prytania, then southeast on First, to Chestnut.",
    hints:[
      "She interviewed a man who could never grow old, and buried her witches two blocks from here.",
-     "First Street at Chestnut, the grand Greek Revival. Look closely at the fence.",
-     "Rosegate, 1239 First St. The fence blooms with iron roses. Name the flower."
+     "First Street at Chestnut, the grand Greek Revival. Look closely at the fence."
    ],
    tasks:[
      {type:"input", check:"list", answers:["rose","roses","rosette","rosettes"],
@@ -360,8 +353,7 @@ const STOPS = [
    way:"<b>the way</b> — Northeast on Chestnut to Jackson, then northwest to Coliseum.",
    hints:[
      "Television witches schooled here, though the real ones never did.",
-     "Jackson Avenue. The grandest house on it, wearing a forest of white.",
-     "Buckner Mansion, 1410 Jackson Ave. Miss Robichaux's Academy, if you believe the screen."
+     "Jackson Avenue. The grandest house on it, wearing a forest of white."
    ],
    tasks:[
      {type:"input", check:"range", min:44, max:52,
@@ -375,8 +367,7 @@ const STOPS = [
    way:"<b>the way</b> — Northwest to the avenue, then northeast along St. Charles. Ride to the eleventh floor.",
    hints:[
      "A thirsty playwright named your ride an hour ago; his cat names your destination.",
-     "An old hotel on the avenue keeps its bar closest to heaven. Ask for the roof.",
-     "The tower at St. Charles and Josephine. The eleventh floor."
+     "An old hotel on the avenue keeps its bar closest to heaven. Ask for the roof."
    ],
    tasks:[
      {type:"input", check:"any", words:["bridge","crescent","connection"],
@@ -497,7 +488,7 @@ function celebrate(icon,title,sub){
 function dismissCelebrate(){ document.getElementById("celebrate").classList.remove("show"); render(); }
 
 function useHint(){
-  if(S.hintsUsed[S.stop]>=3) return;
+  if(S.hintsUsed[S.stop]>=2) return;
   S.hintsUsed[S.stop]++;
   save(); render();
 }
@@ -604,8 +595,8 @@ function render(){
 
   const hintBlock = Array.from({length:used},(_,i)=>`<div class="hintrevealed"><b>hint ${i+1}</b> — ${esc(st.hints[i])}</div>`).join("");
   const hintBtn = `
-      <button class="btn-hint" onclick="useHint()" ${used>=3?"disabled":""}>
-        ${used>=3?"No hints remain here":"Open a hint ("+(used+1)+" of 3)"}
+      <button class="btn-hint" onclick="useHint()" ${used>=2?"disabled":""}>
+        ${used>=2?"No hints remain here":"Open a hint ("+(used+1)+" of 2)"}
       </button>`;
 
   const needsTravel = st.geo && !S.arrived;
