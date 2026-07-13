@@ -266,11 +266,8 @@ const STOPS = [
      "An avenue of mansions; one wears its grove out front and serves lunch beneath it."
    ],
    tasks:[
-     {type:"input", check:"contains", word:"gold",
-      prompt:"Decode your order before the server comes:\nthis house was raised on golden leaf and smoke.\nOrder the cocktail named for a stampede toward treasure.\nWhat will you ask for?",
-      placeholder:"I shall order..."},
      {type:"input", check:"list", answers:["smoke"],
-      prompt:"Order it, said just so, and the server brings more than a drink.",
+      prompt:"This house was raised on golden leaf and smoke.\nOrder the cocktail named for a stampede toward treasure,\nsaid just so, and the server brings more than a drink.",
       placeholder:"Your answer"}
    ],
    lore:{img:"img/columns.jpg", credit:"Infrogmation, CC BY-SA 4.0", title:"The Columns", body:"<em>A grove that never once grew up: the white trunks are columns, planted by masons in 1883.</em> This was the private mansion of Simon Hernsheim, then the wealthiest cigar merchant in America, your homesick king of smoke; the word on your paper is his trade. The house kept its mahogany stairwell and stained glass through a century of reinvention, and it is now the last of the great St. Charles mansions you can simply walk into and order a drink. The paper is a writ of quest. Keep it."}
@@ -403,6 +400,7 @@ function reached(){
   if(S.arrived) return;
   S.arrived=true;
   save();
+  sfxToll();
   celebrate("🕯️", "You stand upon it", "the place itself bears witness");
   render();
 }
@@ -418,6 +416,7 @@ function dismissCelebrate(){ document.getElementById("celebrate").classList.remo
 
 function useHint(){
   if(S.hintsUsed[S.stop]>=2) return;
+  audioInit(); sfxWhisper();
   S.hintsUsed[S.stop]++;
   save(); render();
 }
@@ -434,24 +433,28 @@ function submitTask(){
   const v=document.getElementById("answer").value;
   if(checkAnswer(t,v)){ taskDone(); }
   else{
+    audioInit(); sfxThunk();
     document.getElementById("wrong").textContent="Not so. Look again; the dead are patient, Lord Daniel less.";
     if(navigator.vibrate) navigator.vibrate(120);
   }
 }
 function taskDone(){
+  audioInit();
   const st=STOPS[S.stop];
   if(S.task < st.tasks.length-1){
     S.task++;
     save();
+    sfxChime();
     celebrate("🗝️","The task is met","another asks…");
   } else {
     S.screen="lore";
     save();
+    sfxCryptDoor();
     celebrate("🗝️","The seal is broken","Lord Daniel would speak…");
   }
 }
 function nextStop(){
-  if(S.stop>=STOPS.length-1){ S.done=true; S.screen="final"; }
+  if(S.stop>=STOPS.length-1){ S.done=true; S.screen="final"; sfxVictory(); }
   else{ S.stop++; S.task=0; S.arrived=false; S.screen="clue"; }
   save(); render();
 }
@@ -543,7 +546,97 @@ function render(){
       </div>
       ${hintBtn}`;
 }
-function begin(){ S.screen="clue"; save(); render(); startGeo(); keepAwake(); }
+
+/* ═══════════ SOUND (Web Audio, all synthesized) ═══════════ */
+let AC=null;
+function audioInit(){
+  try{
+    if(!AC) AC=new (window.AudioContext||window.webkitAudioContext)();
+    if(AC.state==="suspended") AC.resume();
+  }catch(e){}
+}
+function _noiseBuf(dur){
+  const n=Math.floor(AC.sampleRate*dur), b=AC.createBuffer(1,n,AC.sampleRate), d=b.getChannelData(0);
+  for(let i=0;i<n;i++) d[i]=Math.random()*2-1;
+  return b;
+}
+function sfxBell(freq=196, when=0, dur=3.2, vol=0.22){
+  if(!AC) return;
+  const t=AC.currentTime+when;
+  [[1,1],[2.0,0.55],[2.92,0.32],[4.2,0.16],[5.4,0.09]].forEach(function(pt){
+    const o=AC.createOscillator(), g=AC.createGain();
+    o.type="sine"; o.frequency.value=freq*pt[0]*(1+(Math.random()-.5)*0.002);
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(vol*pt[1],t+0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+dur*(1-pt[0]*0.09));
+    o.connect(g); g.connect(AC.destination);
+    o.start(t); o.stop(t+dur);
+  });
+}
+function sfxCryptDoor(){
+  if(!AC) return;
+  try{
+    const t=AC.currentTime;
+    const src=AC.createBufferSource(); src.buffer=_noiseBuf(1.0); src.playbackRate.value=0.5;
+    const bp=AC.createBiquadFilter(); bp.type="bandpass"; bp.Q.value=2.2;
+    bp.frequency.setValueAtTime(420,t); bp.frequency.exponentialRampToValueAtTime(70,t+0.85);
+    const g=AC.createGain();
+    g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.5,t+0.1);
+    g.gain.setValueAtTime(0.5,t+0.6); g.gain.exponentialRampToValueAtTime(0.0001,t+0.95);
+    src.connect(bp); bp.connect(g); g.connect(AC.destination);
+    src.start(t); src.stop(t+1.0);
+    const o=AC.createOscillator(), og=AC.createGain();
+    o.type="sine"; o.frequency.setValueAtTime(65,t+0.82); o.frequency.exponentialRampToValueAtTime(40,t+1.15);
+    og.gain.setValueAtTime(0.0001,t+0.82); og.gain.exponentialRampToValueAtTime(0.6,t+0.86);
+    og.gain.exponentialRampToValueAtTime(0.0001,t+1.5);
+    o.connect(og); og.connect(AC.destination); o.start(t+0.82); o.stop(t+1.6);
+    sfxBell(147,1.0,3.6,0.26);
+  }catch(e){}
+}
+function sfxChime(){ try{ sfxBell(294,0,1.6,0.14); }catch(e){} }
+function sfxToll(){ try{ sfxBell(196,0,3.0,0.2); sfxBell(196,0.9,3.4,0.16); }catch(e){} }
+function sfxWhisper(){
+  if(!AC) return;
+  try{
+    const t=AC.currentTime;
+    const src=AC.createBufferSource(); src.buffer=_noiseBuf(0.35);
+    const hp=AC.createBiquadFilter(); hp.type="highpass"; hp.frequency.value=1800;
+    const g=AC.createGain();
+    g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.12,t+0.06);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+0.34);
+    src.connect(hp); hp.connect(g); g.connect(AC.destination);
+    src.start(t); src.stop(t+0.36);
+  }catch(e){}
+}
+function sfxThunk(){
+  if(!AC) return;
+  try{
+    const t=AC.currentTime;
+    const o=AC.createOscillator(), g=AC.createGain();
+    o.type="sine"; o.frequency.setValueAtTime(95,t); o.frequency.exponentialRampToValueAtTime(55,t+0.18);
+    g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.3,t+0.015);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+0.28);
+    o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t+0.3);
+  }catch(e){}
+}
+function sfxVictory(){
+  if(!AC) return;
+  try{
+    const t=AC.currentTime;
+    [[110,0],[146.83,0],[220,0]].forEach(function(pt){
+      const o=AC.createOscillator(), g=AC.createGain(), lp=AC.createBiquadFilter();
+      lp.type="lowpass"; lp.frequency.value=900;
+      o.type="sawtooth"; o.frequency.value=pt[0];
+      g.gain.setValueAtTime(0.0001,t);
+      g.gain.exponentialRampToValueAtTime(0.09,t+1.1);
+      g.gain.setValueAtTime(0.09,t+2.4); g.gain.exponentialRampToValueAtTime(0.0001,t+4.2);
+      o.connect(lp); lp.connect(g); g.connect(AC.destination); o.start(t); o.stop(t+4.3);
+    });
+    sfxBell(220,0.5,3.0,0.18); sfxBell(294,1.1,3.0,0.18); sfxBell(440,1.7,4.0,0.2);
+  }catch(e){}
+}
+
+function begin(){ audioInit(); S.screen="clue"; save(); render(); startGeo(); keepAwake(); }
 
 function burst(){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -577,6 +670,8 @@ if(location.search.includes("reset")){
 }
 render();
 if(S.screen!=="start" && !S.done){ startGeo(); keepAwake(); }
+document.body.addEventListener("touchend", audioInit, {once:true});
+document.body.addEventListener("click", audioInit, {once:true});
 </script>
 </body>
 </html>
