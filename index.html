@@ -446,6 +446,12 @@ function taskDone(){
     save();
     sfxChime();
     celebrate("🗝️","The task is met","another asks…");
+  } else if(S.stop>=STOPS.length-1){
+    S.done=true;
+    S.screen="final";
+    save();
+    sfxVictory();
+    celebrate("👑","The quest is beaten","one last note waits below…");
   } else {
     S.screen="lore";
     save();
@@ -505,6 +511,10 @@ function render(){
         }</div>
         <h2 class="lore-head">The quest is beaten</h2>
         <p class="tasktext" style="text-align:center">Congratulations, St. Mary. The dead, the witch,\nand the iron harvest all know your name now.\nLord Daniel bows.</p>
+      </div>
+      <div class="card">
+        <div class="stopnum">lord daniel&#39;s last note</div>
+        <p class="lore-body"><em>The name was Tennessee Williams, who lived in this hotel, the Pontchartrain, while shaping A Streetcar Named Desire: the wyrm you rode ran on his rails, and this bar is named for his hot tin roof. The whole afternoon bore his signature.</em> Eleven floors below you lie the avenue, the oaks, the river&#39;s bend, and the twin steel crescents of the Crescent City Connection. Drink slowly. You have earned the view.</p>
       </div>
       <button class="btn-ghost" onclick="if(confirm('Reset the whole quest?')){localStorage.removeItem('msq4');location.reload()}">Reset the quest</button>`;
     return;
