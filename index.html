@@ -189,7 +189,7 @@
 </head>
 <body>
 <div id="app">
-  <div style="position:fixed; top:6px; right:10px; font-size:12px; color:#4d4233; font-family:serif; z-index:99">v23</div>
+  <div style="position:fixed; top:6px; right:10px; font-size:12px; color:#4d4233; font-family:serif; z-index:99">v24</div>
   <header id="hdr">
     <h1>The Quest of St. Mary</h1>
     <div class="bee" aria-hidden="true">
@@ -489,6 +489,10 @@ function render(){
 
   if(S.screen==="start"){
     strip.style.display="none"; dots.style.display="none";
+    setTimeout(function(){
+      document.body.addEventListener("touchend", startDrone, {once:true});
+      document.body.addEventListener("click", startDrone, {once:true});
+    }, 50);
     scr.innerHTML=`
       <div class="card center">
         ${portraitHTML("St. Mary")}
@@ -505,6 +509,7 @@ function render(){
   dots.innerHTML=STOPS.map((_,i)=>`<span class="dot ${i<S.stop?"done":i===S.stop?"now":""}"></span>`).join("");
 
   if(S.screen==="final"){
+    setTimeout(startVictoryMusic, 3500);
     scr.innerHTML=`
       <div class="card center">
         <div class="victory-frame">${
@@ -647,7 +652,83 @@ function sfxVictory(){
   }catch(e){}
 }
 
-function begin(){ audioInit(); S.screen="clue"; save(); render(); startGeo(); keepAwake(); }
+
+/* ═══════════ MUSIC (synthesized, start + final screens only) ═══════════ */
+let MUS = {master:null, nodes:[], timers:[], mode:null};
+function stopMusic(){
+  try{
+    MUS.timers.forEach(clearInterval); MUS.timers=[];
+    if(MUS.master && AC){
+      const g=MUS.master, t=AC.currentTime;
+      g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value||0.0001,t);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+1.2);
+      const olds=MUS.nodes.slice();
+      setTimeout(function(){ olds.forEach(function(n){ try{n.stop();}catch(e){} }); },1400);
+    }
+    MUS.nodes=[]; MUS.master=null; MUS.mode=null;
+  }catch(e){}
+}
+function startDrone(){
+  audioInit(); if(!AC||MUS.mode==="drone") return;
+  stopMusic(); MUS.mode="drone";
+  try{
+    const t=AC.currentTime;
+    const master=AC.createGain(); master.gain.setValueAtTime(0.0001,t);
+    master.gain.exponentialRampToValueAtTime(0.09,t+4);
+    master.connect(AC.destination); MUS.master=master;
+    const lp=AC.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value=320; lp.connect(master);
+    [[73.42,1],[73.42*1.006,0.8],[110,0.55],[233.08,0.1]].forEach(function(pt){
+      const o=AC.createOscillator(), g=AC.createGain();
+      o.type = pt[0]>200 ? "sine" : "sawtooth";
+      o.frequency.value=pt[0]; g.gain.value=pt[1];
+      o.connect(g); g.connect(lp); o.start(t); MUS.nodes.push(o);
+    });
+    const lfo=AC.createOscillator(), lg=AC.createGain();
+    lfo.frequency.value=0.07; lg.gain.value=0.03;
+    lfo.connect(lg); lg.connect(master.gain); lfo.start(t); MUS.nodes.push(lfo);
+    const n=Math.floor(AC.sampleRate*3), buf=AC.createBuffer(1,n,AC.sampleRate), d=buf.getChannelData(0);
+    for(let i=0;i<n;i++) d[i]=Math.random()*2-1;
+    const wind=AC.createBufferSource(); wind.buffer=buf; wind.loop=true;
+    const bp=AC.createBiquadFilter(); bp.type="bandpass"; bp.frequency.value=480; bp.Q.value=0.6;
+    const wg=AC.createGain(); wg.gain.value=0.05;
+    wind.connect(bp); bp.connect(wg); wg.connect(master); wind.start(t); MUS.nodes.push(wind);
+    MUS.timers.push(setInterval(function(){
+      if(MUS.mode==="drone" && Math.random()<0.7) sfxBell(87.31,0,5.0,0.05);
+    }, 11000));
+  }catch(e){}
+}
+function startVictoryMusic(){
+  audioInit(); if(!AC||MUS.mode==="victory") return;
+  stopMusic(); MUS.mode="victory";
+  try{
+    const t=AC.currentTime;
+    const master=AC.createGain(); master.gain.setValueAtTime(0.0001,t);
+    master.gain.exponentialRampToValueAtTime(0.07,t+2.5);
+    master.connect(AC.destination); MUS.master=master;
+    const chords=[[130.81,164.81,196.00],[174.61,220.00,261.63],[196.00,246.94,293.66],[130.81,164.81,196.00]];
+    let step=0;
+    function playChord(){
+      if(MUS.mode!=="victory") return;
+      const now=AC.currentTime, ch=chords[step%chords.length];
+      ch.forEach(function(f){
+        const o=AC.createOscillator(), g=AC.createGain(), lp=AC.createBiquadFilter();
+        lp.type="lowpass"; lp.frequency.value=900;
+        o.type="sawtooth"; o.frequency.value=f;
+        g.gain.setValueAtTime(0.0001,now);
+        g.gain.exponentialRampToValueAtTime(0.5,now+0.8);
+        g.gain.setValueAtTime(0.5,now+2.2); g.gain.exponentialRampToValueAtTime(0.0001,now+3.2);
+        o.connect(lp); lp.connect(g); g.connect(master);
+        o.start(now); o.stop(now+3.3);
+      });
+      if(step%2===0) sfxBell(ch[0]*2,0.3,2.6,0.09);
+      step++;
+    }
+    playChord();
+    MUS.timers.push(setInterval(playChord, 2900));
+  }catch(e){}
+}
+
+function begin(){ audioInit(); stopMusic(); S.screen="clue"; save(); render(); startGeo(); keepAwake(); }
 
 function burst(){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
