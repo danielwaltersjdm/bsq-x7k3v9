@@ -34,7 +34,7 @@
   .bee{color:var(--bone); opacity:.85; margin:2px 0 0; line-height:0}
   .compass{display:flex; flex-direction:column; align-items:center; gap:2px; margin-bottom:8px; color:var(--bone-dim)}
   .compass svg{overflow:visible}
-  .compass-note{font-size:18px; font-style:italic}
+  .compass-note{font-size:19px; font-style:italic}
   .rule{ border:none; height:14px; margin:10px auto 0; width:220px;
     background:
      linear-gradient(var(--line),var(--line)) center 3px/220px 1px no-repeat,
@@ -258,9 +258,9 @@ const STOPS = [
    ],
    lore:{title:"The Toast", body:"<em>Skol: the toast of the mead halls, shouted over northern cups for a thousand years.</em> You drank mead on the night this all began, so Lord Daniel saw no reason to break tradition now. The cup is drained, the word is spoken, and the road is open. The first riddle waits at a white grove on the great avenue."}
  },
- { name:"The Columns", geo:null,
+ { name:"The Columns", geo:null, aim:{lat:29.9274365, lon:-90.0961520},
    riddle:"But every hunt must first be fed.\nFind the grove that never grew:\nwhite trunks raised by hands long dead,\nsquare of bark and straight of root,\nwhere a homesick king of smoke once slept\nand porches watch the avenue.\nBeneath those branches take your seat;\norder wisely, and we begin.",
-   way:"<b>the way</b> — Southwest along St. Charles Avenue. Lunch is fair play.",
+   way:"<b>the way</b> — Head southwest along the avenue. Lunch is fair play.",
    hints:[
      "What forest is planted by masons, not rain?",
      "An avenue of mansions; one wears its grove out front and serves lunch beneath it."
@@ -275,7 +275,7 @@ const STOPS = [
    ],
    lore:{img:"img/columns.jpg", credit:"Infrogmation, CC BY-SA 4.0", title:"The Columns", body:"<em>A grove that never once grew up: the white trunks are columns, planted by masons in 1883.</em> This was the private mansion of Simon Hernsheim, then the wealthiest cigar merchant in America, your homesick king of smoke; the word on your paper is his trade. The house kept its mahogany stairwell and stained glass through a century of reinvention, and it is now the last of the great St. Charles mansions you can simply walk into and order a drink. The paper is a writ of quest. Keep it."}
  },
- { name:"The Streetcar", geo:null,
+ { name:"The Streetcar", geo:null, aim:{lat:29.9296, lon:-90.0862},
    riddle:"A rattling wyrm in green and brass\nhas crawled one road two hundred years.\nIt swallows all who pay to pass\nand, sated, spits them out in tiers.\nSeven times it stops and sighs;\nwhen Washington is called, arise.",
    way:"",
    hints:[
@@ -291,7 +291,7 @@ const STOPS = [
  },
  { name:"Lafayette Cemetery No. 1", geo:{lat:29.9288342, lon:-90.0845229},
    riddle:"The quietest folk in all the ward\nkeep no quarrel, share no bread.\nTheir garden gate is locked and barred;\nyou may not walk among the dead.\nOne carved year began their rest:\nspeak it aloud, and pass the test.",
-   way:"<b>the way</b> — From the streetcar stop, southeast on Washington. The gates face you at Prytania.",
+   way:"<b>the way</b> — From the streetcar stop, head southeast.",
    hints:[
      "Seven thousand neighbors, and not one has ever complained of the noise.",
      "Washington at Prytania. The city of the dead you may only greet through iron."
@@ -305,7 +305,7 @@ const STOPS = [
  },
  { name:"The Rink", geo:{lat:29.9300445, lon:-90.0848972},
    riddle:"Where wheels once sang on polished floors\nthe circling skaters turned to ghosts,\nand paper souls now line the shores,\na thousand lives on silent posts.\nOne guest is older than your tongue;\nhis mother's wrath was worse than his.\nFind him: his pages hold a word\nthat is not printed in the book.",
-   way:"<b>the way</b> — Directly across Prytania from the cemetery gates, in the old skating rink.",
+   way:"<b>the way</b> — Just across the street from the gates, to the north.",
    hints:[
      "The old skating rink keeps a bookshop now; its shelves hold a monster older than England.",
      "Ask the keeper of the books where Beowulf sleeps."
@@ -322,7 +322,7 @@ const STOPS = [
  },
  { name:"The Cornstalk Fence", geo:{lat:29.9297569, lon:-90.0843892},
    riddle:"No rain shall rot, no crow shall reap\nthe harvest at this garden's rim,\nsown by a man whose bride would weep\nfor prairie fields grown dear to him.\nEach winter kills it not at all,\neach summer feeds no mouth alive:\nwhat strange crop, along what wall,\nwas never planted, yet will thrive?",
-   way:"<b>the way</b> — Northeast along Prytania, to Fourth Street.",
+   way:"<b>the way</b> — Head northeast.",
    hints:[
      "A crop that a blacksmith could grow and a locust could starve on.",
      "A homesick wife, an iron gift. Walk Prytania toward Fourth and watch the fences."
@@ -336,7 +336,7 @@ const STOPS = [
  },
  { name:"The Anne Rice House", geo:{lat:29.9297860, lon:-90.0801445},
    riddle:"A woman gave the grave a tongue\nand made her deathless lovers young;\nher witches kept a storied hall\non the First of streets, most loved of all.\nHer iron bears a living sign:\nname the flower that will not pine.",
-   way:"<b>the way</b> — Northeast on Prytania, then southeast on First, to Chestnut.",
+   way:"<b>the way</b> — Head northeast, then southeast.",
    hints:[
      "She interviewed a man who could never grow old, and buried her witches two blocks from here.",
      "First Street at Chestnut, the grand Greek Revival. Look closely at the fence."
@@ -350,7 +350,7 @@ const STOPS = [
  },
  { name:"Buckner Mansion", geo:{lat:29.9319568, lon:-90.0790925},
    riddle:"Eight-and-forty limbs of white\nuphold a house that is not home;\na screen-born coven spent one night\nand left me to the dust alone.\nMy gates are shut, my grounds are still:\ncount my limbs, if count you will.",
-   way:"<b>the way</b> — Northeast on Chestnut to Jackson, then northwest to Coliseum.",
+   way:"<b>the way</b> — Head northeast, then northwest.",
    hints:[
      "Television witches schooled here, though the real ones never did.",
      "Jackson Avenue. The grandest house on it, wearing a forest of white."
@@ -364,7 +364,7 @@ const STOPS = [
  },
  { name:"The Roof", geo:{lat:29.9350837, lon:-90.0796890},
    riddle:"You walked among the sleeping dead,\npast iron corn and witches' walls;\nnow climb to where the cat once fled,\na tin roof hot above Saint Charles.\nEleven floors the tower knows;\nthe river bends, the sun drops slow.\nTwo glasses stand there, silver-dry:\ndrink to the hunt, the roof, the sky.",
-   way:"<b>the way</b> — Northwest to the avenue, then northeast along St. Charles. Ride to the eleventh floor.",
+   way:"<b>the way</b> — Head northwest, then northeast. Ride to the eleventh floor.",
    hints:[
      "A thirsty playwright named your ride an hour ago; his cat names your destination.",
      "An old hotel on the avenue keeps its bar closest to heaven. Ask for the roof."
@@ -382,7 +382,7 @@ let S = load() || { screen:"start", stop:0, task:0, hintsUsed:STOPS.map(()=>0), 
 function save(){ localStorage.setItem("msq4", JSON.stringify(S)); }
 function load(){ try{ return JSON.parse(localStorage.getItem("msq4")); }catch(e){ return null; } }
 
-let watchId=null, lastDist=null, geoOK=false, lastGeoErr=null;
+let watchId=null, geoOK=false;
 function startGeo(){
   if(!("geolocation" in navigator)){ geoFail("no location service"); return; }
   try{
@@ -390,77 +390,20 @@ function startGeo(){
       {enableHighAccuracy:true, maximumAge:3000, timeout:15000});
   }catch(e){ geoFail(String(e)); }
 }
-function geoFail(msg){ geoOK=false; lastGeoErr=msg; S.manual=true; save(); render(); }
-function geoBanner(){
-  return (!geoOK && lastGeoErr)
-    ? `<div class="banner">The stars are clouded (${esc(lastGeoErr)}). Manual mode: the referee unseals each stop.</div>` : "";
-}
+function geoFail(msg){ geoOK=false; }
 function onPos(p){
   geoOK=true;
-  if(lastGeoErr){ lastGeoErr=null; render(); }
-  if(S.screen!=="clue"||S.arrived||S.done) return;
+  if(S.done||S.screen==="start"||S.screen==="final") return;
   const t=STOPS[S.stop];
-  if(!t.geo) return;
-  curPos={lat:p.coords.latitude, lon:p.coords.longitude};
-  lastDist = haversine(p.coords.latitude,p.coords.longitude,t.geo.lat,t.geo.lon);
-  updateMeter(); updateCompass();
-  if(lastDist<=UNLOCK_RADIUS) reached();
+  if(!t.geo||S.arrived) return;
+  const d=haversine(p.coords.latitude,p.coords.longitude,t.geo.lat,t.geo.lon);
+  if(d<=UNLOCK_RADIUS) reached();
 }
 function haversine(a,b,c,d){
   const R=6371000, r=x=>x*Math.PI/180;
   const dLat=r(c-a), dLon=r(d-b);
   const h=Math.sin(dLat/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(dLon/2)**2;
   return 2*R*Math.asin(Math.sqrt(h));
-}
-let curPos=null, deviceHeading=null;
-function bearingTo(lat1,lon1,lat2,lon2){
-  const r=x=>x*Math.PI/180;
-  const y=Math.sin(r(lon2-lon1))*Math.cos(r(lat2));
-  const x=Math.cos(r(lat1))*Math.sin(r(lat2))-Math.sin(r(lat1))*Math.cos(r(lat2))*Math.cos(r(lon2-lon1));
-  return (Math.atan2(y,x)*180/Math.PI+360)%360;
-}
-function cardinalName(b){
-  const names=["north","northeast","east","southeast","south","southwest","west","northwest"];
-  return names[Math.round(b/45)%8];
-}
-function updateCompass(){
-  const g=document.getElementById("needleG"), note=document.getElementById("compassNote");
-  if(!g||!note) return;
-  const t=STOPS[S.stop];
-  if(!t.geo||!curPos){ note.textContent="reading the sky\u2026"; return; }
-  const b=bearingTo(curPos.lat,curPos.lon,t.geo.lat,t.geo.lon);
-  const rot=(deviceHeading!=null)?(b-deviceHeading):b;
-  g.style.transform="rotate("+rot+"deg)";
-  note.textContent="the next seal lies to the "+cardinalName(b);
-}
-function attachOrientation(){
-  window.addEventListener("deviceorientation", function(e){
-    let h=null;
-    if(typeof e.webkitCompassHeading==="number") h=e.webkitCompassHeading;
-    else if(e.absolute && typeof e.alpha==="number") h=(360-e.alpha)%360;
-    if(h!=null){ deviceHeading=h; updateCompass(); }
-  }, true);
-}
-function requestOrientation(){
-  try{
-    if(typeof DeviceOrientationEvent!=="undefined" && DeviceOrientationEvent.requestPermission){
-      DeviceOrientationEvent.requestPermission().then(function(s){ if(s==="granted") attachOrientation(); }).catch(function(){});
-    } else attachOrientation();
-  }catch(e){}
-}
-function meterState(m){
-  if(m==null) return {cls:"", word:"Reading the stars…", sub:"walk on; the sky will speak"};
-  if(m<=UNLOCK_RADIUS) return {cls:"here", word:"You stand upon it", sub:""};
-  if(m<150) return {cls:"hot", word:"The veil is thin", sub:"less than a block and a half"};
-  if(m<400) return {cls:"warm", word:"The scent grows warm", sub:"a few blocks yet"};
-  return {cls:"cold", word:"The trail is cold", sub:"you are far; think again"};
-}
-function updateMeter(){
-  const el=document.getElementById("meter"); if(!el) return;
-  const st=meterState(lastDist);
-  el.className="meter "+st.cls;
-  el.querySelector(".word").textContent=st.word;
-  el.querySelector(".hintline").textContent=st.sub;
 }
 
 let wl=null;
@@ -474,7 +417,7 @@ function reached(){
   if(S.arrived) return;
   S.arrived=true;
   save();
-  celebrate("🕯️", STOPS[S.stop].arriveMsg || "You stand upon it", "the seal awaits its task");
+  celebrate("🕯️", "You stand upon it", "the place itself bears witness");
   render();
 }
 function celebrate(icon,title,sub){
@@ -523,7 +466,7 @@ function taskDone(){
 }
 function nextStop(){
   if(S.stop>=STOPS.length-1){ S.done=true; S.screen="final"; }
-  else{ S.stop++; S.task=0; S.arrived=false; lastDist=null; S.screen="clue"; }
+  else{ S.stop++; S.task=0; S.arrived=false; S.screen="clue"; }
   save(); render();
 }
 
@@ -557,7 +500,7 @@ function render(){
         <p class="small" style="margin:14px 0 4px">Hints wait beneath every riddle; open as many as you please.\nLord Daniel walks beside you and guides you on your quest.</p>
         <button class="btn-primary" style="margin-top:14px" onclick="begin()">Break the first seal</button>
       </div>
-      ${geoBanner()}`;
+      `;
     return;
   }
 
@@ -599,53 +542,22 @@ function render(){
         ${used>=2?"No hints remain here":"Open a hint ("+(used+1)+" of 2)"}
       </button>`;
 
-  const needsTravel = st.geo && !S.arrived;
-  if(needsTravel){
-    const mst=meterState(lastDist);
-    scr.innerHTML=`
-      ${geoBanner()}
+  const t=st.tasks[S.task];
+  const multi=st.tasks.length>1 ? ` &middot; task ${S.task+1} of ${st.tasks.length}` : "";
+  scr.innerHTML=`
       <div class="card">
-        <div class="stopnum">seal ${S.stop+1} of ${STOPS.length}</div>
+        <div class="stopnum">seal ${S.stop+1} of ${STOPS.length}${multi}</div>
         <p class="riddle">${esc(st.riddle)}</p>
         ${st.way?`<p class="way">${st.way}</p>`:""}
-        ${hintBlock}
-      </div>
-      <div class="meter ${mst.cls}" id="meter">
-        <div class="compass">
-          <svg viewBox="0 0 80 80" width="66" height="66">
-            <circle cx="40" cy="40" r="29" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".55"/>
-            <text x="40" y="9" text-anchor="middle" font-size="10" fill="currentColor" font-family="serif">N</text>
-            <g id="needleG" style="transform-origin:40px 40px; transition:transform .4s ease">
-              <path d="M40 15 L46 46 L40 40.5 L34 46 Z" fill="#c9a227" stroke="none"/>
-            </g>
-            <circle cx="40" cy="40" r="2.4" fill="currentColor"/>
-          </svg>
-          <div class="compass-note" id="compassNote">reading the sky…</div>
-        </div>
-        <div class="word">${mst.word}</div>
-        <div class="hintline">${mst.sub}</div>
-      </div>
-      ${hintBtn}
-      ${S.manual?`<button class="btn-ghost" style="margin-top:10px" onclick="refOverride()">Referee: we stand upon it</button>`:""}`;
-    updateCompass();
-  } else {
-    const t=st.tasks[S.task];
-    const multi=st.tasks.length>1 ? ` &middot; task ${S.task+1} of ${st.tasks.length}` : "";
-    scr.innerHTML=`
-      ${geoBanner()}
-      <div class="card">
-        <div class="stopnum">seal ${S.stop+1} of ${STOPS.length} &middot; ${esc(st.name)}${multi}</div>
-        ${(!st.geo)?`<p class="riddle">${esc(st.riddle)}</p>${st.way?`<p class="way">${st.way}</p>`:""}`:""}
-        <p class="tasktext" style="margin-top:${st.geo?0:16}px">${esc(t.prompt)}</p>
+        <p class="tasktext" style="margin-top:16px">${esc(t.prompt)}</p>
         <input type="text" id="answer" placeholder="${esc(t.placeholder||"Answer")}" autocomplete="off" autocapitalize="off">
         <p class="wrong" id="wrong"></p>
         <button class="btn-primary" onclick="submitTask()">Offer the answer</button>
-        ${(!st.geo)?hintBlock:""}
+        ${hintBlock}
       </div>
-      ${(!st.geo)?hintBtn:""}`;
-  }
+      ${hintBtn}`;
 }
-function begin(){ S.screen="clue"; save(); render(); startGeo(); keepAwake(); requestOrientation(); }
+function begin(){ S.screen="clue"; save(); render(); startGeo(); keepAwake(); }
 
 function burst(){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -678,7 +590,7 @@ if(location.search.includes("reset")){
   history.replaceState(null, "", location.pathname);
 }
 render();
-if(S.screen!=="start" && !S.done){ startGeo(); keepAwake(); document.body.addEventListener("click", requestOrientation, {once:true}); }
+if(S.screen!=="start" && !S.done){ startGeo(); keepAwake(); }
 </script>
 </body>
 </html>
