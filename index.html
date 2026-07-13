@@ -349,7 +349,7 @@ const STOPS = [
      "The tower at St. Charles and Josephine. The eleventh floor."
    ],
    tasks:[
-     {type:"input", check:"contains", word:"bridge",
+     {type:"input", check:"any", words:["bridge","crescent","connection"],
       prompt:"Look south, past the river's bend.\nTwin crescents of steel cross the water there.\nName what you see, and the quest is yours.",
       placeholder:"What do you see?"}
    ],
@@ -438,6 +438,7 @@ function checkAnswer(task, raw){
   const v=(raw||"").trim().toLowerCase();
   if(task.check==="list") return task.answers.some(a=>v===a||v.includes(a));
   if(task.check==="contains") return v.includes(task.word);
+  if(task.check==="any") return task.words.some(w=>v.includes(w));
   if(task.check==="range"){ const n=parseInt(v.replace(/\D/g,""),10); return !isNaN(n)&&n>=task.min&&n<=task.max; }
   return false;
 }
